@@ -44,10 +44,16 @@ const add = (req, res, next) => {
   if (
     !req.body.channelName ||
     !req.body.channelDescription ||
+    !req.body.sourceAddress ||
+    !req.body.sourcePort ||
+    !req.body.headerSize ||
     typeof req.body.channelDescription !== 'string' ||
-    typeof req.body.channelName !== 'string'
+    typeof req.body.channelName !== 'string' ||
+    typeof req.body.sourceAddress !== 'string' ||
+    typeof req.body.sourcePort !== 'number' ||
+    typeof req.body.headerSize !== 'number'
   ) {
-    res.status(400).json({ message: 'Incomplete information provided.' });
+    res.sendStatus(400);
   } else {
     next();
   }
@@ -74,7 +80,7 @@ const edit = (req, res, next) => {
     typeof req.body.channelUrl !== 'string' ||
     typeof req.body.channelPassword !== 'string'
   ) {
-    res.status(400).json({ message: 'Incomplete information provided.' });
+    res.sendStatus(400);
   } else {
     next();
   }
@@ -97,7 +103,7 @@ const remove = (req, res, next) => {
     typeof req.body.channelUrl !== 'string' ||
     typeof req.body.channelPassword !== 'string'
   ) {
-    res.status(400).json({ message: 'Incomplete information provided.' });
+    res.sendStatus(400);
   } else {
     next();
   }

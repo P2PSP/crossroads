@@ -1,22 +1,26 @@
 const createTable = `CREATE TABLE IF NOT EXISTS channels (
-	name         TEXT    NOT NULL,
-	password	   INTEGER NOT NULL,
-	url	         TEXT    NOT NULL UNIQUE,
-	splitterList TEXT    NOT NULL,
-  description	 TEXT    NOT NULL DEFAULT '',
-  visible      INTEGER NOT NULL DEFAULT 1
+	name          TEXT    NOT NULL,
+	password	    INTEGER NOT NULL,
+	url	          TEXT    NOT NULL UNIQUE,
+	splitterAddr  TEXT    NOT NULL,
+  description	  TEXT    NOT NULL,
+  sourceAddress TEXT    NOT NULL,
+  sourcePort    INTEGER NOT NULL,
+  headerSize    INTEGER NOT NULL,
+  visible       INTEGER NOT NULL DEFAULT 1
 );`;
 
-const selectAllChannels = `SELECT name, url, splitterList, description
+const selectAllChannels = `SELECT name, url, splitterAddr, description
   FROM channels
   WHERE VISIBLE = 1
   LIMIT @limit OFFSET @offset`;
 
-const selectChannel = `SELECT name, splitterList, description
+const selectChannel = `SELECT name, splitterAddr, description
   FROM channels WHERE url = (?)`;
 
 const insertChannel = `INSERT INTO channels VALUES (
-  @name, @password, @url, @splitterList, @description, 1 )`;
+  @name, @password, @url, @splitterAddr, @description,
+  @sourceAddress, @sourcePort, @headerSize, 1 )`;
 
 const updateChannel = `UPDATE channels
   SET name = @name, description = @description

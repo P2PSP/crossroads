@@ -20,6 +20,7 @@ const shortid = require('shortid');
 const promisify = require('util').promisify;
 const generateApiKey = promisify(crypto.randomBytes);
 const db = require('../models/channelModel');
+const engine = require('../engine/engine');
 
 /**
  * Main controller method for listing out all channels currently present in
@@ -33,9 +34,6 @@ const listAllChannels = (req, res) => {
   let result = db.getAllChannels(req.query.limit, req.query.offset);
   result = result === undefined ? [] : result;
   if (result) {
-    result.forEach(channel => {
-      channel.splitterList = channel.splitterList.split(',');
-    });
     res.json(result);
   } else {
     res.sendStatus(500);
@@ -53,7 +51,6 @@ const listAllChannels = (req, res) => {
 const getChannel = (req, res) => {
   const result = db.getChannel(req.params.channelUrl);
   if (result) {
-    result.splitterList = result.splitterList.split(',');
     res.json(result);
   } else if (result === undefined) {
     res.sendStatus(400);
@@ -78,11 +75,14 @@ const addChannel = async (req, res) => {
     const channel = {
       name: req.body.channelName,
       url: shortid.generate(),
-      splitterList: '127.0.0.1:33244,127.0.0.1:8001',
       description: req.body.channelDescription,
+      sourceAddress: req.body.sourceAddress,
+      sourcePort: req.body.sourcePort,
+      headerSize: req.body.headerSize,
       password: hash
     };
-    if (db.addChannel(channel)) {
+    channel.splitterAddr = await engine.launch(channel);
+    if (channel.splitterAddr && db.addChannel(channel)) {
       const response = {
         channelUrl: channel.url,
         channelPassword: buf.toString('hex')
@@ -128,6 +128,7 @@ const editChannel = (req, res) => {
  */
 const removeChannel = (req, res) => {
   if (db.removeChannel(req.body.channelUrl)) {
+    engine.stop(req.body.channelUrl);
     res.end();
   } else {
     res.sendStatus(500);

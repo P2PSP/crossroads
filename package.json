@@ -26,6 +26,7 @@
     "express": "^4.15.3",
     "kaho": "^0.1.1",
     "morgan": "^1.8.2",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "signal-exit": "^3.0.2"
   }
 }

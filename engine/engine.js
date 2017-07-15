@@ -1,3 +1,4 @@
+const onExit = require('signal-exit');
 const logger = require('kaho');
 const fs = require('fs');
 const os = require('os');
@@ -79,6 +80,13 @@ const stop = url => {
     o.monitor.kill('SIGTERM');
   }
 };
+
+onExit(function(code, signal) {
+  splitterStore.forEach(o => {
+    o.splitter.kill('SIGKILL');
+    o.monitor.kill('SIGKILL');
+  });
+});
 
 module.exports = {
   launch,

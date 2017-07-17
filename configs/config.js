@@ -17,6 +17,34 @@
 */
 const port = process.env.PORT || 3000;
 
+/**
+ * P2PSP splitter binary path
+ *
+ * @constant
+ * @type {string}
+*/
+const splitterBin = process.env.SPLITTERBIN;
+
+/**
+ * P2PSP splitter bind address
+ *
+ * @constant
+ * @type {string}
+ * @default '127.0.0.1'
+*/
+const splitterAddress = process.env.BINDADDRESS || '127.0.0.1';
+
+/**
+ * P2PSP monitor binary path
+ *
+ * @constant
+ * @type {string}
+*/
+const monitorBin = process.env.MONITORBIN;
+
 module.exports = {
-  port
+  port,
+  splitterBin,
+  splitterAddress,
+  monitorBin
 };

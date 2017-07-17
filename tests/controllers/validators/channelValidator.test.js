@@ -53,7 +53,10 @@ describe('Add channel validator', () => {
     const req = {
       body: {
         channelName: 'channel1',
-        channelDescription: 'Some description about this channel'
+        channelDescription: 'Some description about this channel',
+        sourceAddress: '127.0.0.1',
+        sourcePort: 8001,
+        headerSize: 3000
       }
     };
     const res = undefined;
@@ -65,36 +68,22 @@ describe('Add channel validator', () => {
 
   test('Bad input #1', () => {
     const req = { body: { channelName: undefined } };
-    const res = { status: jest.fn() };
-    const jsonMethod = jest.fn();
-    res.status.mockReturnValue({ json: jsonMethod });
+    const res = { sendStatus: jest.fn() };
     const next = undefined;
 
     check.add(req, res, next);
-    expect(res.status.mock.calls.length).toBe(1);
-    expect(res.status.mock.calls[0][0]).toBe(400);
-
-    expect(jsonMethod.mock.calls.length).toBe(1);
-    expect(jsonMethod.mock.calls[0][0]).toEqual({
-      message: 'Incomplete information provided.'
-    });
+    expect(res.sendStatus.mock.calls.length).toBe(1);
+    expect(res.sendStatus.mock.calls[0][0]).toBe(400);
   });
 
   test('Bad input #2', () => {
     const req = { body: { channelName: 4 } };
-    const res = { status: jest.fn() };
-    const jsonMethod = jest.fn();
-    res.status.mockReturnValue({ json: jsonMethod });
+    const res = { sendStatus: jest.fn() };
     const next = undefined;
 
     check.add(req, res, next);
-    expect(res.status.mock.calls.length).toBe(1);
-    expect(res.status.mock.calls[0][0]).toBe(400);
-
-    expect(jsonMethod.mock.calls.length).toBe(1);
-    expect(jsonMethod.mock.calls[0][0]).toEqual({
-      message: 'Incomplete information provided.'
-    });
+    expect(res.sendStatus.mock.calls.length).toBe(1);
+    expect(res.sendStatus.mock.calls[0][0]).toBe(400);
   });
 });
 
@@ -117,19 +106,12 @@ describe('Edit channel validator', () => {
 
   test('Bad input', () => {
     const req = { body: {} };
-    const res = { status: jest.fn() };
-    const jsonMethod = jest.fn();
-    res.status.mockReturnValue({ json: jsonMethod });
+    const res = { sendStatus: jest.fn() };
     const next = undefined;
 
     check.edit(req, res, next);
-    expect(res.status.mock.calls.length).toBe(1);
-    expect(res.status.mock.calls[0][0]).toBe(400);
-
-    expect(jsonMethod.mock.calls.length).toBe(1);
-    expect(jsonMethod.mock.calls[0][0]).toEqual({
-      message: 'Incomplete information provided.'
-    });
+    expect(res.sendStatus.mock.calls.length).toBe(1);
+    expect(res.sendStatus.mock.calls[0][0]).toBe(400);
   });
 });
 
@@ -150,19 +132,12 @@ describe('Remove channel validator', () => {
 
   test('Bad input', () => {
     const req = { body: {} };
-    const res = { status: jest.fn() };
-    const jsonMethod = jest.fn();
-    res.status.mockReturnValue({ json: jsonMethod });
+    const res = { sendStatus: jest.fn() };
     const next = undefined;
 
     check.remove(req, res, next);
-    expect(res.status.mock.calls.length).toBe(1);
-    expect(res.status.mock.calls[0][0]).toBe(400);
-
-    expect(jsonMethod.mock.calls.length).toBe(1);
-    expect(jsonMethod.mock.calls[0][0]).toEqual({
-      message: 'Incomplete information provided.'
-    });
+    expect(res.sendStatus.mock.calls.length).toBe(1);
+    expect(res.sendStatus.mock.calls[0][0]).toBe(400);
   });
 });
 

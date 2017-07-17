@@ -47,26 +47,24 @@ Exports methods
 ## listAllChannels
 
 Main controller method for listing out all channels currently present in
-database. Response is sent in JSON format.
+database. Response is sent in JSON encoded array of objects containing
+channel information, HTTP 500 for server error.
 
 **Parameters**
 
 -   `req` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Express request object
 -   `res` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Express response object
-
-Returns **[JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON)** JSON encoded array of objects containing channel information
 
 ## getChannel
 
 Controller method for getting information about a single channel with given
-channel url. Response is sent in JSON format, HTTP 400 for wrong url.
+channel url. Response is sent in JSON JSON encoded object containing channel
+information, HTTP 400 for wrong url, HTTP 500 for server error.
 
 **Parameters**
 
 -   `req` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Express request object
 -   `res` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Express response object
-
-Returns **[JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON)** JSON encoded object containing channel information
 
 ## addChannel
 
@@ -80,8 +78,6 @@ stack which shall be printed on attached [process.stdout].
 -   `req` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Express request object
 -   `res` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Express response object
 
-Returns **any** HTTP status 200 for success, 500 for error
-
 ## editChannel
 
 Controller method for editing a single channel with given channel url and its
@@ -93,8 +89,6 @@ corresponding password. HTTP 200 is returned if successful, otherwise HTTP
 -   `req` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Express request object
 -   `res` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Express response object
 
-Returns **any** HTTP status 200 for success, 500 for error
-
 ## removeChannel
 
 Controller method for removing a single channel with given channel url and
@@ -105,8 +99,6 @@ HTTP 500 for error.
 
 -   `req` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Express request object
 -   `res` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Express response object
-
-Returns **any** HTTP status 200 for success, 500 for error
 
 ## controllers/validators/channelValidator
 

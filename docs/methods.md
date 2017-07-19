@@ -4,12 +4,30 @@
 
 -   [configs/config](#configsconfig)
 -   [port](#port)
+-   [splitterBin](#splitterbin)
+-   [splitterAddress](#splitteraddress)
+-   [monitorBin](#monitorbin)
 -   [controllers/validators/channelController](#controllersvalidatorschannelcontroller)
 -   [listAllChannels](#listallchannels)
 -   [getChannel](#getchannel)
 -   [addChannel](#addchannel)
 -   [editChannel](#editchannel)
 -   [removeChannel](#removechannel)
+-   [engine/engine](#engineengine)
+-   [setProcessMap](#setprocessmap)
+-   [launch](#launch)
+-   [stop](#stop)
+-   [onExit](#onexit)
+-   [engine/splitterProcess](#enginesplitterprocess)
+-   [launchSplitter](#launchsplitter)
+-   [engine/getPort](#enginegetport)
+-   [getPort](#getport)
+-   [engine/cmdGen](#enginecmdgen)
+-   [tagCmd](#tagcmd)
+-   [genCmdSplitter](#gencmdsplitter)
+-   [genCmdMonitor](#gencmdmonitor)
+-   [engine/monitorProcess](#enginemonitorprocess)
+-   [launchMonitor](#launchmonitor)
 -   [controllers/validators/channelValidator](#controllersvalidatorschannelvalidator)
 -   [list](#list)
 -   [add](#add)
@@ -24,11 +42,26 @@ Config module containing useful constants used throughout the application.
 Exports following constants
 
 -   port
+-   splitterBin
+-   splitterAddress
+-   monitorBin
 
 ## port
 
 Default port number for running Server. Default value is 3000 which is picked
 if there is no PORT env variable set.
+
+## splitterBin
+
+P2PSP splitter binary path
+
+## splitterAddress
+
+P2PSP splitter bind address
+
+## monitorBin
+
+P2PSP monitor binary path
 
 ## controllers/validators/channelController
 
@@ -99,6 +132,159 @@ HTTP 500 for error.
 
 -   `req` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Express request object
 -   `res` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Express response object
+
+## engine/engine
+
+Splitter and Monitor process management engine module
+
+Exports methods
+
+-   launch
+-   stop
+-   setProcessMap
+
+## setProcessMap
+
+Function to set processMap to supplied map type
+
+**Parameters**
+
+-   `mapp` **[Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)** Map to store all running processes
+
+## launch
+
+Async function to launch splitter and monitor processes for given channel,
+returns splitter and monitor address on success, otherwise throws Error
+
+**Parameters**
+
+-   `channel`  
+-   `strings` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of Strings
+-   `params` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of arguments passed to function
+
+
+-   Throws **any** Will throw an error if any process fails to launch
+
+Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of splitter and monitor address
+
+## stop
+
+Function to stop splitter and monitor process associated with certain channel
+
+**Parameters**
+
+-   `url` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Unique channel url for which stop is to be called
+
+## onExit
+
+OnExit handler, in case of fatal exit all processes are killed
+
+## engine/splitterProcess
+
+Splitter process launcher module for engine module
+
+Exports methods
+
+-   launchSplitter
+
+## launchSplitter
+
+Async function to launch splitter process for given channel, returns splitter
+process and address on success, otherwise throws Error
+
+**Parameters**
+
+-   `channel` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Channel object containing relevant information
+
+
+-   Throws **any** Will throw an error if process fails to launch or log file fails
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Contains splitter process and address
+
+## engine/getPort
+
+getPort module - generates a random port for instant use
+
+Exports methods
+
+-   getPort
+
+## getPort
+
+Generates a random port via net.createServer() and returns it in a promise.
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** promise resolving to port number
+
+## engine/cmdGen
+
+Command Generator module - Contains various methods for generating splitter &
+monitor commands for execution.
+
+Exports methods
+
+-   genCmdSplitter
+-   genCmdMonitor
+
+**Parameters**
+
+-   `strings`  
+-   `params` **...any** 
+
+## tagCmd
+
+Tag Method that helps generating execution command for given string & params
+
+**Parameters**
+
+-   `strings` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of Strings
+-   `params` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of arguments passed to function
+
+Returns **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** string with all params placed at right position
+
+## genCmdSplitter
+
+Simply stiches together the command and params passed to this function to
+generate splitter process execution command
+
+**Parameters**
+
+-   `params` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of arguments passed to function
+
+Returns **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** splitter process execution command
+
+## genCmdMonitor
+
+Simply stiches together the command and params passed to this function to
+generate monitor process execution command
+
+**Parameters**
+
+-   `params` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of arguments passed to function
+
+Returns **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** monitor process execution command
+
+## engine/monitorProcess
+
+Monitor process launcher module for engine module
+
+Exports methods
+
+-   launchMonitor
+
+## launchMonitor
+
+Async function to launch monitor process for given channel, returns monitor
+process and address on success, otherwise throws Error
+
+**Parameters**
+
+-   `channel` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Channel object containing relevant information
+-   `splitterPort` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Port number of splitter process
+
+
+-   Throws **any** Will throw an error if process fails to launch or log file fails
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Contains monitor process and address
 
 ## controllers/validators/channelValidator
 

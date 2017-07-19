@@ -1,88 +1,72 @@
+/**
+ * Splitter and Monitor process management engine module
+ *
+ * Exports methods
+ *  - launch
+ *  - stop
+ *  - setProcessMap
+ *
+ * @module engine/engine
+ */
+
 const onExit = require('signal-exit');
 const logger = require('kaho');
-const fs = require('fs');
-const os = require('os');
-const { spawn } = require('child_process');
-const { genCmdSplitter, genCmdMonitor } = require('./cmdGen');
-const { getPort } = require('./getPort');
 const config = require('./../configs/config');
+const { launchSplitter } = require('./splitterProcess');
+const { launchMonitor } = require('./monitorProcess');
 
-const splitterStore = new Map();
+// Map of [channelUrl] => {splitter, monitor} processes
+let processMap = new Map();
 
-const launch = async channel => {
-  const cmdParams = [
-    channel.sourceAddress,
-    channel.sourcePort,
-    0,
-    channel.name,
-    channel.headerSize
-  ];
-
-  let splitterPort, monitorPort;
-
-  try {
-    splitterPort = await getPort();
-    monitorPort = await getPort();
-  } catch (err) {
-    return false;
-  }
-
-  cmdParams[2] = splitterPort;
-
-  const stamp = new Date().getTime();
-  const sLog = os.tmpdir() + '/P2PSP-' + channel.url + '-' + stamp + '.log';
-  const mLog = os.tmpdir() + '/P2PSP-M-' + channel.url + '-' + stamp + '.log';
-  const outS = fs.openSync(sLog, 'a');
-  const outM = fs.openSync(mLog, 'a');
-
-  const splitterArgs = genCmdSplitter(...cmdParams);
-  const splitterProcess = spawn('./splitter', splitterArgs.split(' '), {
-    cwd: config.splitterBin,
-    stdio: ['ignore', outS, 'pipe']
-  });
-  splitterProcess.on('err', err => {
-    logger('ERROR', 'Splitter process error', channel.url, err);
-  });
-  splitterProcess.stderr.on('data', err => {
-    logger('ERROR', 'Splitter process error', channel.url, err.toString());
-  });
-  splitterProcess.on('exit', (err, code) => {
-    logger('INFO', 'Splitter process closed', channel.url, code);
-  });
-
-  const monitorArgs = genCmdMonitor(config.splitterAddress, splitterPort);
-  const monitorProcess = spawn('./monitor', monitorArgs.split(' '), {
-    cwd: config.monitorBin,
-    stdio: ['ignore', outM, 'pipe']
-  });
-  monitorProcess.on('err', err => {
-    logger('ERROR', 'Monitor process error', channel.url, err);
-  });
-  monitorProcess.stderr.on('data', err => {
-    logger('ERROR', 'Monitor process error', channel.url, err.toString());
-  });
-  monitorProcess.on('exit', (err, code) => {
-    logger('INFO', 'Monitor process closed', channel.url, code);
-  });
-
-  splitterStore.set(channel.url, {
-    splitter: splitterProcess,
-    monitor: monitorProcess
-  });
-
-  return config.splitterAddress + ':' + splitterPort;
+/**
+ * Function to set processMap to supplied map type
+ *
+ * @param {Map} mapp - Map to store all running processes
+ */
+const setProcessMap = mapp => {
+  processMap = mapp;
 };
 
+/**
+ * Async function to launch splitter and monitor processes for given channel,
+ * returns splitter and monitor address on success, otherwise throws Error
+ *
+ * @param {Array} strings - Array of Strings
+ * @param {Array} params - Array of arguments passed to function
+ * @throws Will throw an error if any process fails to launch
+ * @returns {Array} Array of splitter and monitor address
+ */
+const launch = async channel => {
+  const splitter = await launchSplitter(channel);
+  const splitterPort = splitter.address.split(':')[1];
+  const monitor = await launchMonitor(channel, splitterPort);
+
+  processMap.set(channel.url, {
+    splitter: splitter.process,
+    monitor: monitor.process
+  });
+
+  return [splitter.address, monitor.address];
+};
+
+/**
+ * Function to stop splitter and monitor process associated with certain channel
+ *
+ * @param {string} url - Unique channel url for which stop is to be called
+ */
 const stop = url => {
-  const o = splitterStore.get(url);
+  const o = processMap.get(url);
   if (o !== undefined) {
     o.splitter.kill('SIGTERM');
     o.monitor.kill('SIGTERM');
   }
 };
 
-onExit(function(code, signal) {
-  splitterStore.forEach(o => {
+/**
+ * OnExit handler, in case of fatal exit all processes are killed
+ */
+onExit((code, signal) => {
+  processMap.forEach(o => {
     o.splitter.kill('SIGKILL');
     o.monitor.kill('SIGKILL');
   });
@@ -90,5 +74,6 @@ onExit(function(code, signal) {
 
 module.exports = {
   launch,
-  stop
+  stop,
+  setProcessMap
 };

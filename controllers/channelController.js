@@ -81,8 +81,10 @@ const addChannel = async (req, res) => {
       headerSize: req.body.headerSize,
       password: hash
     };
-    channel.splitterAddr = await engine.launch(channel);
-    if (channel.splitterAddr && db.addChannel(channel)) {
+    const splitterMonitor = await engine.launch(channel);
+    channel.splitterAddr = splitterMonitor[0];
+    channel.MonitorAddr = splitterMonitor[1];
+    if (db.addChannel(channel)) {
       const response = {
         channelUrl: channel.url,
         channelPassword: buf.toString('hex')

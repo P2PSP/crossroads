@@ -3,6 +3,9 @@
  *
  * Exports following constants
  *  - port
+ *  - splitterBin
+ *  - splitterAddress
+ *  - monitorBin
  *
  * @module configs/config
  */
@@ -32,7 +35,7 @@ const splitterBin = process.env.SPLITTERBIN;
  * @type {string}
  * @default '127.0.0.1'
 */
-const splitterAddress = process.env.BINDADDRESS || '127.0.0.1';
+const splitterAddress = process.env.SBINDADDRESS || '127.0.0.1';
 
 /**
  * P2PSP monitor binary path

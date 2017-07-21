@@ -1,6 +1,7 @@
 const check = require('../../../controllers/validators/channelValidator');
 const db = require('../../../models/channelModel');
 const cntrl = require('../../../controllers/channelController');
+jest.mock('../../../engine/engine');
 
 describe('List channels validator', () => {
   test('successfully', () => {
@@ -149,7 +150,7 @@ describe('Auth validator', () => {
       run: jest.fn()
     };
     db.setDB(database);
-    const addReq = { body: { channelName: 'newChannel' } };
+    const addReq = { body: { channelName: 'newChannel', headerSize: 50 } };
     const addRes = { json: jest.fn() };
     await cntrl.addChannel(addReq, addRes);
     const url = addRes.json.mock.calls[0][0].channelUrl;
@@ -191,7 +192,7 @@ describe('Auth validator', () => {
       run: jest.fn()
     };
     db.setDB(database);
-    const addReq = { body: { channelName: 'newChannel' } };
+    const addReq = { body: { channelName: 'newChannel', headerSize: 50 } };
     const addRes = { json: jest.fn() };
     await cntrl.addChannel(addReq, addRes);
     const url = addRes.json.mock.calls[0][0].channelUrl;
@@ -217,7 +218,7 @@ describe('Auth validator', () => {
       run: jest.fn()
     };
     db.setDB(database);
-    const addReq = { body: { channelName: 'newChannel' } };
+    const addReq = { body: { channelName: 'newChannel', headerSize: 50 } };
     const addRes = { json: jest.fn() };
     await cntrl.addChannel(addReq, addRes);
     const url = addRes.json.mock.calls[0][0].channelUrl;

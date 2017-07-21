@@ -10,8 +10,6 @@
  */
 
 const onExit = require('signal-exit');
-const logger = require('kaho');
-const config = require('./../configs/config');
 const { launchSplitter } = require('./splitterProcess');
 const { launchMonitor } = require('./monitorProcess');
 

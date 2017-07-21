@@ -32,7 +32,7 @@ describe('List all channels', () => {
     Database.prepare.mockReturnValueOnce(Database);
     Database.all.mockReturnValueOnce([
       { splitterAddr: '127.0.0.1:23456' },
-      { splitterAddr: '}
+      { splitterAddr: '127.0.0.1:23456' }
     ]);
     db.setDB(Database);
 

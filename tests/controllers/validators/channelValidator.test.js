@@ -196,7 +196,6 @@ describe('Auth validator', () => {
     const addRes = { json: jest.fn() };
     await cntrl.addChannel(addReq, addRes);
     const url = addRes.json.mock.calls[0][0].channelUrl;
-    const password = addRes.json.mock.calls[0][0].channelPassword;
     database.get.mockReturnValueOnce({
       password: database.run.mock.calls[0][0].password
     });
@@ -222,7 +221,6 @@ describe('Auth validator', () => {
     const addRes = { json: jest.fn() };
     await cntrl.addChannel(addReq, addRes);
     const url = addRes.json.mock.calls[0][0].channelUrl;
-    const password = addRes.json.mock.calls[0][0].channelPassword;
     database.get.mockReturnValueOnce({
       password: database.run.mock.calls[0][0].password
     });

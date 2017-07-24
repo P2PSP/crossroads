@@ -1,6 +1,7 @@
 const cntrl = require('../../controllers/channelController');
 const db = require('../../models/channelModel');
 const Q = require('../../models/Q');
+jest.mock('../../engine/engine');
 
 afterEach(() => {
   db.setDB(undefined);
@@ -32,7 +33,7 @@ describe('List all channels', () => {
     Database.prepare.mockReturnValueOnce(Database);
     Database.all.mockReturnValueOnce([
       { splitterAddr: '127.0.0.1:23456' },
-      { splitterAddr: '}
+      { splitterAddr: '127.0.0.1:23456' }
     ]);
     db.setDB(Database);
 
@@ -120,7 +121,7 @@ describe('List single channel', () => {
 
 describe('Add a new channel', () => {
   test('successfully', async () => {
-    const req = { body: { channelName: 'newChannel' } };
+    const req = { body: { channelName: 'newChannel', headerSize: 50 } };
     const res = { json: jest.fn() };
 
     const Database = {

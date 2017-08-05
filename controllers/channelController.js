@@ -83,11 +83,11 @@ const addChannel = async (req, res) => {
     };
     const splitterMonitor = await engine.launch(channel);
     channel.splitterAddr = splitterMonitor[0];
-    channel.MonitorAddr = splitterMonitor[1];
     if (db.addChannel(channel)) {
       const response = {
         channelUrl: channel.url,
-        channelPassword: buf.toString('hex')
+        channelPassword: buf.toString('hex'),
+        monitorAddress: splitterMonitor[1]
       };
       res.json(response);
     } else {

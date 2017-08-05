@@ -137,6 +137,7 @@ describe('Add a new channel', () => {
     expect(res.json.mock.calls.length).toBe(1);
     expect(res.json.mock.calls[0][0].channelUrl).not.toBe(undefined);
     expect(res.json.mock.calls[0][0].channelPassword).not.toBe(undefined);
+    expect(res.json.mock.calls[0][0].monitorAddress).not.toBe(undefined);
   });
 
   test('fail', async () => {

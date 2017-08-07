@@ -24,7 +24,7 @@
     "better-sqlite3": "^3.1.1",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "kaho": "^0.1.1",
+    "kaho": "^0.1.2",
     "morgan": "^1.8.2",
     "shortid": "^2.2.8",
     "signal-exit": "^3.0.2"

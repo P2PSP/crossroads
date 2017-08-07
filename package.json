@@ -14,7 +14,7 @@
   "author": "agauniyal <agauniyal@outlook.com>",
   "license": "MIT",
   "devDependencies": {
-    "documentation": "^4.0.0-rc.1",
+    "documentation": "^5.1.1",
     "jest": "^20.0.4",
     "nodemon": "^1.11.0",
     "supertest": "^3.0.0"

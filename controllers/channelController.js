@@ -79,6 +79,7 @@ const addChannel = async (req, res) => {
       sourceAddress: req.body.sourceAddress,
       sourcePort: req.body.sourcePort,
       headerSize: req.body.headerSize,
+      isSmartSourceClient: req.body.isSmartSourceClient,
       password: hash
     };
     const splitterMonitor = await engine.launch(channel);
@@ -87,6 +88,7 @@ const addChannel = async (req, res) => {
       const response = {
         channelUrl: channel.url,
         channelPassword: buf.toString('hex'),
+        splitterAddress: splitterMonitor[0],
         monitorAddress: splitterMonitor[1]
       };
       res.json(response);

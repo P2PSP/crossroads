@@ -50,14 +50,33 @@ describe('List channels validator', () => {
 });
 
 describe('Add channel validator', () => {
-  test('Success', () => {
+  test('Success #1', () => {
     const req = {
       body: {
         channelName: 'channel1',
         channelDescription: 'Some description about this channel',
         sourceAddress: '127.0.0.1',
         sourcePort: 8001,
-        headerSize: 3000
+        headerSize: 3000,
+        isSmartSourceClient: false
+      }
+    };
+    const res = undefined;
+    const next = jest.fn();
+
+    check.add(req, res, next);
+    expect(next.mock.calls.length).toBe(1);
+  });
+
+  test('Success #2', () => {
+    const req = {
+      body: {
+        channelName: 'channel1',
+        channelDescription: 'Some description about this channel',
+        sourceAddress: '127.0.0.1',
+        sourcePort: 8001,
+        headerSize: 3000,
+        isSmartSourceClient: true
       }
     };
     const res = undefined;

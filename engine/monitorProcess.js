@@ -33,15 +33,18 @@ const launchMonitor = async (channel, splitterPort) => {
   const name = os.tmpdir() + '/P2PSP-M-' + channel.url + '-' + stamp + '.log';
   const monitorFD = await openFile(name, 'a');
 
-  const monitorArgs = genCmdMonitor(config.splitterAddress, splitterPort, port);
+  const monitorArgs =
+    genCmdMonitor(config.splitterAddress, splitterPort, port) +
+    (channel.isSmartSourceClient ? ' --smart_source_client 1' : '');
+
   const monitorProcess = spawn('./monitor', monitorArgs.split(' '), {
     cwd: config.monitorBin,
     stdio: ['ignore', monitorFD, monitorFD]
   });
-  monitorProcess.on('err', err => {
+  monitorProcess.on('error', err => {
     logger('Warning', channel.name + ': monitor error', err);
   });
-  monitorProcess.on('exit', (err, code) => {
+  monitorProcess.on('exit', code => {
     logger('INFO', channel.name + ': monitor closed', code);
   });
 

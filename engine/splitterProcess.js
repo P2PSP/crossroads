@@ -39,15 +39,18 @@ const launchSplitter = async channel => {
   const openFile = promisify(fs.open);
   const splitterFD = await openFile(name, 'a');
 
-  const splitterArgs = genCmdSplitter(...cmdParams);
+  const splitterArgs =
+    genCmdSplitter(...cmdParams) +
+    (channel.isSmartSourceClient ? ' --smart_source_client 1' : '');
+
   const splitterProcess = spawn('./splitter', splitterArgs.split(' '), {
     cwd: config.splitterBin,
     stdio: ['ignore', splitterFD, splitterFD]
   });
-  splitterProcess.on('err', err => {
+  splitterProcess.on('error', err => {
     logger('WARNING', channel.name + ': splitter error', err);
   });
-  splitterProcess.on('exit', (err, code) => {
+  splitterProcess.on('exit', code => {
     logger('INFO', channel.name + ': splitter closed', code);
   });
 

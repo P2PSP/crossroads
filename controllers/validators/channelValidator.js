@@ -42,16 +42,12 @@ const list = (req, res, next) => {
  */
 const add = (req, res, next) => {
   if (
-    !req.body.channelName ||
-    !req.body.channelDescription ||
-    !req.body.sourceAddress ||
-    !req.body.sourcePort ||
-    !req.body.headerSize ||
     typeof req.body.channelDescription !== 'string' ||
     typeof req.body.channelName !== 'string' ||
     typeof req.body.sourceAddress !== 'string' ||
     typeof req.body.sourcePort !== 'number' ||
-    typeof req.body.headerSize !== 'number'
+    typeof req.body.headerSize !== 'number' ||
+    typeof req.body.isSmartSourceClient !== 'boolean'
   ) {
     res.sendStatus(400);
   } else {
@@ -71,10 +67,6 @@ const add = (req, res, next) => {
  */
 const edit = (req, res, next) => {
   if (
-    !req.body.channelNewName ||
-    !req.body.channelNewDescription ||
-    !req.body.channelUrl ||
-    !req.body.channelPassword ||
     typeof req.body.channelNewName !== 'string' ||
     typeof req.body.channelNewDescription !== 'string' ||
     typeof req.body.channelUrl !== 'string' ||
@@ -98,8 +90,6 @@ const edit = (req, res, next) => {
  */
 const remove = (req, res, next) => {
   if (
-    !req.body.channelUrl ||
-    !req.body.channelPassword ||
     typeof req.body.channelUrl !== 'string' ||
     typeof req.body.channelPassword !== 'string'
   ) {

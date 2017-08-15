@@ -1,0 +1,20 @@
+<%- include('../partials/header'); %>
+
+<% if(containsResponse) { %>
+  <% if(status === 200) { %>
+    <div class="background-success margin-l padding-xs color-white">Success - Your channel has been deleted</div>
+  <% } else { %>
+    <div class="background-error margin-l padding-xs color-white">Some error occurred while processing your request</div>
+  <% } %>
+<% } %>
+
+<fieldset>
+  <legend>Remove channel</legend>
+  <form method="POST" action="/remove">
+    <input type="text" name="channelUrl" placeholder="Enter channel url">
+    <input type="password" name="channelPassword" placeholder="Enter channel password">
+    <button type="submit" class="button">Submit</button>
+  </form>
+</fieldset>
+
+<%- include('../partials/footer'); %>

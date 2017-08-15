@@ -83,7 +83,7 @@ const addChannel = async (req, res) => {
       password: hash
     };
     const splitterMonitor = await engine.launch(channel);
-    channel.splitterAddr = splitterMonitor[0];
+    channel.splitterAddress = splitterMonitor[0];
     if (db.addChannel(channel)) {
       const response = {
         channelUrl: channel.url,

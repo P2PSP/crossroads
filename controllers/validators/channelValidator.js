@@ -4,10 +4,12 @@
  * modifying exisiting data. Should be called before actual controller methods.
  *
  * Exports methods
- *  - add
- *  - edit
- *  - remove
- *  - auth
+ * - list
+ * - add
+ * - frontendAdd
+ * - edit
+ * - remove
+ * - auth
  *
  * @module controllers/validators/channelValidator
  */
@@ -32,8 +34,7 @@ const list = (req, res, next) => {
 };
 
 /**
- * Request body validator for adding a new channel route. Checks for channelName
- * is sent with the request, denies the request otherwise by returning HTTP 400.
+ * Request body validator for adding a new channel route.
  *
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
@@ -46,12 +47,52 @@ const add = (req, res, next) => {
     typeof req.body.channelName !== 'string' ||
     typeof req.body.sourceAddress !== 'string' ||
     typeof req.body.sourcePort !== 'number' ||
+    req.body.sourcePort > 65535 ||
+    req.body.sourcePort < 0 ||
     typeof req.body.headerSize !== 'number' ||
+    req.body.headerSize < 0 ||
     typeof req.body.isSmartSourceClient !== 'boolean'
   ) {
     res.sendStatus(400);
   } else {
     next();
+  }
+};
+
+/**
+ * Request body validator for adding a new channel route via the frontend.
+ *
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ * @returns {undefined}
+ */
+const frontendAdd = (req, res, next) => {
+  if (
+    typeof req.body.channelDescription !== 'string' ||
+    typeof req.body.channelName !== 'string' ||
+    typeof req.body.sourceAddress !== 'string' ||
+    typeof req.body.sourcePort !== 'string' ||
+    typeof req.body.headerSize !== 'string'
+  ) {
+    res.sendStatus(400);
+  } else {
+    req.body.sourcePort = parseInt(req.body.sourcePort, 10);
+    req.body.headerSize = parseInt(req.body.headerSize, 10);
+    if (
+      isNaN(req.body.sourcePort) ||
+      req.body.sourcePort > 65535 ||
+      req.body.sourcePort < 0 ||
+      isNaN(req.body.headerSize) ||
+      req.body.headerSize < 0
+    ) {
+      res.sendStatus(400);
+    } else {
+      req.body.isSmartSourceClient = req.body.isSmartSourceClient
+        ? true
+        : false;
+      next();
+    }
   }
 };
 
@@ -134,6 +175,7 @@ const auth = async (req, res, next) => {
 module.exports = {
   list,
   add,
+  frontendAdd,
   edit,
   remove,
   auth

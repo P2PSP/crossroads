@@ -1,0 +1,27 @@
+<%- include('../partials/header'); %>
+
+<% if(status === 200) { %>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Splitter</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= data.name %></td>
+        <td><%= data.description %></td>
+        <td><%= data.splitterAddress %></td>
+      </tr>
+    </tbody>
+  </table>
+
+<% } else if(status === 400) { %>
+  <div class="background-info margin-l padding-xs color-white">Channel not found!</div>
+<% } else { %>
+  <div class="background-error margin-l padding-xs color-white">Error occurred while processing your request</div>
+<% } %>
+
+<%- include('../partials/footer'); %>

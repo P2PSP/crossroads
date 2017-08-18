@@ -14,7 +14,7 @@
       <% data.forEach(function(channel) { %>
         <tr>
           <td><%= channel.name %></td>
-          <td><%= channel.url %></td>
+          <td><a href="/<%= channel.url %>"><%= channel.url %><a></td>
           <td><%= channel.description %></td>
           <td><%= channel.splitterAddress %></td>
         </tr>

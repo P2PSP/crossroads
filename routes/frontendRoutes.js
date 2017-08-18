@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const cntrl = require('../controllers/frontendController');
 const check = require('../controllers/validators/channelValidator');
 
+router.use(helmet());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/', [check.list, cntrl.renderAllChannels]);

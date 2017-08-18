@@ -11,6 +11,7 @@ db.setDB(new Database('p2psp_rest_server.db'));
 db.start();
 
 const app = express();
+app.disable('x-powered-by');
 app.use(morgan('dev'));
 
 app.use(express.static('public'));

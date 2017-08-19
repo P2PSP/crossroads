@@ -20,9 +20,12 @@ const logger = require('kaho');
 
 /**
  * Validator for listing all existing channels. Sanitizes limit and offset query
- * and proceeds to next()
+ * and proceeds to next() middleware. If limit is more than 50 items, it will
+ * default to 50.
  *
  * @param {Object} req - Express request object
+ * @param {String} req.query.limit  - Numerical value for limit on items
+ * @param {String} req.query.offset - Numerical value for offset of items
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  * @returns {undefined}
@@ -30,13 +33,27 @@ const logger = require('kaho');
 const list = (req, res, next) => {
   req.query.limit = parseInt(req.query.limit) || undefined;
   req.query.offset = parseInt(req.query.offset) || undefined;
+
+  if (req.query.limit != undefined && req.query.limit > 50) {
+    req.query.limit = 50;
+  }
   next();
 };
 
 /**
- * Request body validator for adding a new channel route.
+ * Request body validator for adding a new channel route. Validates the type of
+ * data being sent and also performs checks on port numbers. Returns HTTP Status
+ * 400 if wrong data is being sent otherwise calls next() middleware. Keep in
+ * mind that this validator is seperate from frontendAdd() since this guards the
+ * api rather than the frontend request.
  *
  * @param {Object} req - Express request object
+ * @param {String} req.body.channelDescription - Description about the channel
+ * @param {String} req.body.channelName - Name of the channel
+ * @param {String} req.body.sourceAddress - Address of the source stream
+ * @param {Number} req.body.sourcePort - Source port, should be between 0 - 65535
+ * @param {Number} req.body.headerSize - Size of headers in bytes
+ * @param {Boolean} req.body.isSmartSourceClient - Boolean flag to change modes
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  * @returns {undefined}
@@ -60,9 +77,19 @@ const add = (req, res, next) => {
 };
 
 /**
- * Request body validator for adding a new channel route via the frontend.
+ * Request body validator for adding a new channel through frontend. Validates
+ * the type of data being sent and also performs checks on port numbers. Returns
+ * HTTP Status 400 if wrong data is being sent otherwise calls next() middleware
+ * The isSmartSourceClient is optional field because of the way HTTP form works
+ * with a checkbox value, nothing is sent if it's not checked.
  *
  * @param {Object} req - Express request object
+ * @param {String} req.body.channelDescription - Description about the channel
+ * @param {String} req.body.channelName - Name of the channel
+ * @param {String} req.body.sourceAddress - Address of the source stream
+ * @param {Number} req.body.sourcePort - Source port, should be between 0 - 65535
+ * @param {Number} req.body.headerSize - Size of headers in bytes
+ * @param {Boolean} req.body.isSmartSourceClient - Boolean flag to change modes (optional)
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  * @returns {undefined}
@@ -98,10 +125,15 @@ const frontendAdd = (req, res, next) => {
 
 /**
  * Request body validator for editing channel route. Checks for channelNewName,
- * channelUrl and channelPassword are sent with the request, denies the request
- * otherwise by returning HTTP 400.
+ * channelNewDescription, channelUrl and channelPassword are sent with the
+ * request and calls next(), otherwise denies the request by returning HTTP 400.
+ * Does not performs any kind of authorization, needs another validator for that
  *
  * @param {Object} req - Express request object
+ * @param {String} req.body.channelNewDescription - New description about the channel
+ * @param {String} req.body.channelNewName - New name of the channel
+ * @param {String} req.body.channelUrl - Url of the channel to be edited
+ * @param {String} req.body.channelPassword - Password of the channel to be edited
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  * @returns {undefined}
@@ -121,10 +153,13 @@ const edit = (req, res, next) => {
 
 /**
  * Request body validator for removing an existing channel route. Checks for
- * channelUrl and channelPassword are sent with the request, denies the request
- * otherwise by returning HTTP 400. Does not performs any kind of authorization.
+ * channelUrl and channelPassword are sent with the request and calls next(),
+ * denies the request otherwise by returning HTTP 400. Does not performs any
+ * kind of authorization, needs another validator for that.
  *
  * @param {Object} req - Express request object
+ * @param {String} req.body.channelUrl - Url of the channel to be removed
+ * @param {String} req.body.channelPassword - Password of the channel to be removed
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  * @returns {undefined}
@@ -146,6 +181,8 @@ const remove = (req, res, next) => {
  * denies the request and returns HTTP 401.
  *
  * @param {Object} req - Express request object
+ * @param {String} req.body.channelUrl - Url of the channel
+ * @param {String} req.body.channelPassword - Password of the channel
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  * @returns {undefined}

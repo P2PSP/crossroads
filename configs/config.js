@@ -21,15 +21,8 @@
 const port = process.env.PORT || 3000;
 
 /**
- * P2PSP splitter binary path
- *
- * @constant
- * @type {string}
-*/
-const splitterBin = process.env.SPLITTERBIN;
-
-/**
- * P2PSP splitter bind address
+ * P2PSP splitter bind address. By default '127.0.0.1' is picked if nothing is
+ * supplied. Set via env - SBINDADDRESS.
  *
  * @constant
  * @type {string}
@@ -38,7 +31,15 @@ const splitterBin = process.env.SPLITTERBIN;
 const splitterAddress = process.env.SBINDADDRESS || '127.0.0.1';
 
 /**
- * P2PSP monitor binary path
+ * P2PSP splitter binary path. Set via env - SPLITTERBIN.
+ *
+ * @constant
+ * @type {string}
+*/
+const splitterBin = process.env.SPLITTERBIN;
+
+/**
+ * P2PSP monitor binary path. Set via env - MONITORBIN.
  *
  * @constant
  * @type {string}

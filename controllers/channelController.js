@@ -13,6 +13,8 @@
  * @module controllers/validators/channelController
  */
 
+'use strict';
+
 const crypto = require('crypto');
 const argon2 = require('argon2');
 const logger = require('kaho');

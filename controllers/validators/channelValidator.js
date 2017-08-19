@@ -14,6 +14,8 @@
  * @module controllers/validators/channelValidator
  */
 
+'use strict';
+
 const argon2 = require('argon2');
 const db = require('../../models/channelModel');
 const logger = require('kaho');

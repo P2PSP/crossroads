@@ -1,3327 +1,3308 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-  <meta charset='utf-8' />
-  <title>crossroads 0.1.0 | Documentation</title>
-  <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
-  <link href='assets/style.css' type='text/css' rel='stylesheet' />
-  <link href='assets/github.css' type='text/css' rel='stylesheet' />
-  <link href='assets/split.css' type='text/css' rel='stylesheet' />
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1">
+<title>crossroads 0.1.0 &#8212; P2PSP server implementation</title>
+<meta name="description" content="P2PSP server implementation">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+<style>
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
+.jumbotron {
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: #2B303E;
+    -webkit-font-smoothing: antialiased;
+}
+
+.jumbotron h1 {
+    font-size: 3.5rem;
+    line-height: 1;
+}
+
+.jumbotron h1,
+.jumbotron h1 a {
+    color: #eee;
+}
+
+.jumbotron small {
+    font-weight: 200;
+    color: #777;
+}
+
+.jumbotron p {
+    font-size: 1.5rem;
+    font-weight: 200;
+    line-height: 1.2;
+    color: #ccc;
+}
+
+.wrap {
+    padding: 2rem 1rem;
+}
+
+.search {
+    margin: 0 0 1rem 0;
+    width: 90%;
+}
+
+.menu {
+    padding: 0;
+}
+
+.menu li {
+    list-style: none;
+}
+
+.menu li ul {
+    padding: 0;
+}
+
+.menu li a {
+    display: block;
+    padding: .25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menu .file {
+    color: #E54D89;
+}
+
+.menu .file + ul {
+    margin: 0 0 1rem 0;
+}
+
+.menu .scope-private a {
+    color: #8BAAC6;
+}
+
+.method {
+    margin: 0 0 4rem 0;
+}
+
+.method .method-name {
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.method .method-name + .scope-private {
+    color: #AAAAAA;
+}
+
+.method section {
+    margin: 2rem 0;
+}
+
+.method h3 {
+    margin: 0 0 1rem 0;
+}
+
+.method .table,
+.method .table p,
+.method .table ol,
+.method .table ul {
+    margin: 0;
+}
+
+.permalink {
+    position: absolute;
+    margin-left: -1em;
+    font-weight: normal;
+    color: #eee;
+    text-decoration: none;
+}
+
+.permalink:hover {
+    color: #E54D89;
+}
+
+.back-to-top {
+    display: none;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    padding: .5rem .6rem;
+    line-height: 1;
+    background: #fff;
+    z-index: 999;
+}
+
+.back-to-top.visible {
+    display: block;
+}
+
+.back-to-top svg {
+    vertical-align: middle;
+}
+
+.bs-footer {
+    margin: 3rem auto;
+    color: #777;
+    text-align: center;
+}
+
+</style>
 </head>
-<body class='documentation m0'>
-    <div class='flex'>
-      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
-        <div class='py1 px2'>
-          <h3 class='mb0 no-anchor'>crossroads</h3>
-          <div class='mb1'><code>0.1.0</code></div>
-          <input
-            placeholder='Filter'
-            id='filter-input'
-            class='col12 block input'
-            type='text' />
-          <div id='toc'>
-            <ul class='list-reset h5 py1-ul'>
-              
-                
-                <li><a
-                  href='#configsconfig'
-                  class="">
-                  configs/config
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#port'
-                  class="">
-                  port
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#splitteraddress'
-                  class="">
-                  splitterAddress
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#splitterbin'
-                  class="">
-                  splitterBin
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#monitorbin'
-                  class="">
-                  monitorBin
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#controllersvalidatorschannelcontroller'
-                  class="">
-                  controllers/validators/channelController
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#listallchannels'
-                  class="">
-                  listAllChannels
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#getchannel'
-                  class="">
-                  getChannel
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#addchannel'
-                  class="">
-                  addChannel
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#addchannel'
-                  class="">
-                  addChannel
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#editchannel'
-                  class="">
-                  editChannel
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#editchannel'
-                  class="">
-                  editChannel
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#removechannel'
-                  class="">
-                  removeChannel
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#removechannel'
-                  class="">
-                  removeChannel
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#engineengine'
-                  class="">
-                  engine/engine
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#setprocessmap'
-                  class="">
-                  setProcessMap
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#launch'
-                  class="">
-                  launch
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#stop'
-                  class="">
-                  stop
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#onexit'
-                  class="">
-                  onExit
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#enginesplitterprocess'
-                  class="">
-                  engine/splitterProcess
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#launchsplitter'
-                  class="">
-                  launchSplitter
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#enginemonitorprocess'
-                  class="">
-                  engine/monitorProcess
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#launchmonitor'
-                  class="">
-                  launchMonitor
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#enginegetport'
-                  class="">
-                  engine/getPort
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#getport'
-                  class="">
-                  getPort
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#enginecmdgen'
-                  class="">
-                  engine/cmdGen
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#tagcmd'
-                  class="">
-                  tagCmd
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#gencmdsplitter'
-                  class="">
-                  genCmdSplitter
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#gencmdmonitor'
-                  class="">
-                  genCmdMonitor
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#controllersvalidatorsfrontendcontroller'
-                  class="">
-                  controllers/validators/frontendController
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#renderallchannels'
-                  class="">
-                  renderAllChannels
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#renderachannel'
-                  class="">
-                  renderAChannel
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#renderaddchannelform'
-                  class="">
-                  renderAddChannelForm
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#rendereditchannelform'
-                  class="">
-                  renderEditChannelForm
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#renderremovechannelform'
-                  class="">
-                  renderRemoveChannelForm
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#controllersvalidatorschannelvalidator'
-                  class="">
-                  controllers/validators/channelValidator
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#list'
-                  class="">
-                  list
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#add'
-                  class="">
-                  add
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#frontendadd'
-                  class="">
-                  frontendAdd
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#edit'
-                  class="">
-                  edit
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#remove'
-                  class="">
-                  remove
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#auth'
-                  class="">
-                  auth
-                  
-                </a>
-                
-                </li>
-              
-            </ul>
-          </div>
-          <div class='mt1 h6 quiet'>
-            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
-          </div>
-        </div>
-      </div>
-      <div id='split-right' class='relative overflow-auto height-viewport-100'>
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='configsconfig'>
-      configs/config
-    </h3>
-    
-    
-  </div>
-  
+<body>
 
-  <p>Config module containing useful constants used throughout the application.</p>
-<p>Exports following constants</p>
-<ul>
-<li>port</li>
-<li>splitterBin</li>
-<li>splitterAddress</li>
-<li>monitorBin</li>
-</ul>
+<a href="#" class="back-to-top"><svg xmlns="http://www.w3.org/2000/svg" width="13px" height="14px" viewBox="0 0 13 14"><path d="M7.18761156,13 L7.18761156,5.49249703 L10.4587853,5.49249703 L5.09931763,0.113558129 L-0.26015,5.49249703 L3.01102371,5.49249703 L3.01102371,13 L7.18761156,13 Z" fill="#428bca"></path></svg> Back to Top</a>
+
+<div class="jumbotron">
+
+    <div class="container">
+
+        <h1>
+                crossroads
+            <small>0.1.0</small>
+        </h1>
+
+        <p>P2PSP server implementation</p>
+
+    </div>
+
+</div>
+
+<div class="wrap">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3 hidden-sm hidden-xs">
+
+                <input type="search" class="form-control search" id="search-methods" placeholder="Search..." autocomplete="off">
+
+                <ul class="menu">
 
 
-  <div class='pre p1 fill-light mt0'>configs/config</div>
-  
-  
+                    <li>
+                        <a href="#configs/config.js" class="file"><b>configs/config.js</b></a>
+                        <ul>
 
-  
-  
-  
-  
-  
-  
 
-  
+                        <li class="method-link scope-public">
+                            <a href="#configs-config.js-port" title="port">port</a>
+                        </li>
 
-  
 
-  
+                        <li class="method-link scope-public">
+                            <a href="#configs-config.js-splitteraddress" title="splitterAddress">splitterAddress</a>
+                        </li>
 
-  
 
-  
+                        <li class="method-link scope-public">
+                            <a href="#configs-config.js-splitterbin" title="splitterBin">splitterBin</a>
+                        </li>
 
-  
 
-  
+                        <li class="method-link scope-public">
+                            <a href="#configs-config.js-monitorbin" title="monitorBin">monitorBin</a>
+                        </li>
 
-  
-</section>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+                        </ul>
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='port'>
-      port
-    </h3>
-    
-    
-  </div>
-  
+                    </li>
 
-  <p>Default port number for running Server. Default value is 3000 which is picked
+
+                    <li>
+                        <a href="#controllers/channelController.js" class="file"><b>controllers/channelController.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-channelcontroller.js-listallchannels" title="listAllChannels">listAllChannels</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-channelcontroller.js-getchannel" title="getChannel">getChannel</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-channelcontroller.js-addchannel" title="addChannel">addChannel</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-channelcontroller.js-editchannel" title="editChannel">editChannel</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-channelcontroller.js-removechannel" title="removeChannel">removeChannel</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="#controllers/frontendController.js" class="file"><b>controllers/frontendController.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-frontendcontroller.js-renderallchannels" title="renderAllChannels">renderAllChannels</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-frontendcontroller.js-renderachannel" title="renderAChannel">renderAChannel</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-frontendcontroller.js-renderaddchannelform" title="renderAddChannelForm">renderAddChannelForm</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-frontendcontroller.js-addchannel" title="addChannel">addChannel</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-frontendcontroller.js-rendereditchannelform" title="renderEditChannelForm">renderEditChannelForm</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-frontendcontroller.js-editchannel" title="editChannel">editChannel</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-frontendcontroller.js-renderremovechannelform" title="renderRemoveChannelForm">renderRemoveChannelForm</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-frontendcontroller.js-removechannel" title="removeChannel">removeChannel</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="#controllers/validators/channelValidator.js" class="file"><b>controllers/validators/channelValidator.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-validators-channelvalidator.js-list" title="list">list</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-validators-channelvalidator.js-add" title="add">add</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-validators-channelvalidator.js-frontendadd" title="frontendAdd">frontendAdd</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-validators-channelvalidator.js-edit" title="edit">edit</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-validators-channelvalidator.js-remove" title="remove">remove</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-validators-channelvalidator.js-auth" title="auth">auth</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="#engine/cmdGen.js" class="file"><b>engine/cmdGen.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#engine-cmdgen.js-tagcmd" title="tagCmd">tagCmd</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#engine-cmdgen.js-gencmdsplitter" title="genCmdSplitter">genCmdSplitter</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#engine-cmdgen.js-gencmdmonitor" title="genCmdMonitor">genCmdMonitor</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="#engine/engine.js" class="file"><b>engine/engine.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#engine-engine.js-setprocessmap" title="setProcessMap">setProcessMap</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#engine-engine.js-launch" title="launch">launch</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#engine-engine.js-stop" title="stop">stop</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#engine-engine.js-onexit" title="onExit">onExit</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="#engine/getPort.js" class="file"><b>engine/getPort.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#engine-getport.js-getport" title="getPort">getPort</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="#engine/monitorProcess.js" class="file"><b>engine/monitorProcess.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#engine-monitorprocess.js-launchmonitor" title="launchMonitor">launchMonitor</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="#engine/splitterProcess.js" class="file"><b>engine/splitterProcess.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#engine-splitterprocess.js-launchsplitter" title="launchSplitter">launchSplitter</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                </ul>
+
+            </div>
+
+            <div class="col-md-9">
+
+
+                <a id="configs/config.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="configs-config.js-port">
+                            <a href="#configs-config.js-port" class="permalink">#</a>
+                            <span class="method-name" title="port()">port()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Default port number for running Server. Default value is 3000 which is picked
 if there is no PORT env variable set.</p>
 
 
-  <div class='pre p1 fill-light mt0'>port</div>
-  
-  
+                        </div>
 
-  
-  
-  
-  
-  
-  
 
-  
 
-  
 
-  
+                        <section class="returns">
 
-  
+                            <h3>Returns</h3>
 
-  
 
-  
+                            <p><code>Void</code></p>
 
-  
 
-  
-</section>
+                        </section>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+                    </div>
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='splitteraddress'>
-      splitterAddress
-    </h3>
-    
-    
-  </div>
-  
 
-  <p>P2PSP splitter bind address. By default '127.0.0.1' is picked if nothing is
+                    <div class="method scope-public">
+
+                        <h2 id="configs-config.js-splitteraddress">
+                            <a href="#configs-config.js-splitteraddress" class="permalink">#</a>
+                            <span class="method-name" title="splitterAddress()">splitterAddress()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>P2PSP splitter bind address. By default '127.0.0.1' is picked if nothing is
 supplied. Set via env - SBINDADDRESS.</p>
 
 
-  <div class='pre p1 fill-light mt0'>splitterAddress</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='splitterbin'>
-      splitterBin
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>P2PSP splitter binary path. Set via env - SPLITTERBIN.</p>
+                        </div>
 
 
-  <div class='pre p1 fill-light mt0'>splitterBin</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='monitorbin'>
-      monitorBin
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>P2PSP monitor binary path. Set via env - MONITORBIN.</p>
 
 
-  <div class='pre p1 fill-light mt0'>monitorBin</div>
-  
-  
+                        <section class="returns">
 
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='controllersvalidatorschannelcontroller'>
-      controllers/validators/channelController
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>ChannelController module - Contains various methods for acting as controller
-layer between models and routes. Proper validators must be placed before them
-to validate/authorize requests.</p>
-<p>Exports methods</p>
-<ul>
-<li>listAllChannels</li>
-<li>getChannel</li>
-<li>addChannel</li>
-<li>editChannel</li>
-<li>removeChannel</li>
-</ul>
+                            <h3>Returns</h3>
 
 
-  <div class='pre p1 fill-light mt0'>controllers/validators/channelController</div>
-  
-  
+                            <p><code>Void</code></p>
 
-  
-  
-  
-  
-  
-  
 
-  
+                        </section>
 
-  
+                    </div>
 
-  
 
-  
+                    <div class="method scope-public">
 
-  
+                        <h2 id="configs-config.js-splitterbin">
+                            <a href="#configs-config.js-splitterbin" class="permalink">#</a>
+                            <span class="method-name" title="splitterBin()">splitterBin()</span>
+                        </h2>
 
-  
+                        <div class="description lead">
 
-  
+                            <p>P2PSP splitter binary path. Set via env - SPLITTERBIN.</p>
 
-  
-</section>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+                        </div>
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='listallchannels'>
-      listAllChannels
-    </h3>
-    
-    
-  </div>
-  
 
-  <p>Main controller method for listing out all channels currently present in
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="configs-config.js-monitorbin">
+                            <a href="#configs-config.js-monitorbin" class="permalink">#</a>
+                            <span class="method-name" title="monitorBin()">monitorBin()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>P2PSP monitor binary path. Set via env - MONITORBIN.</p>
+
+
+                        </div>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+
+                <a id="controllers/channelController.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-channelcontroller.js-listallchannels">
+                            <a href="#controllers-channelcontroller.js-listallchannels" class="permalink">#</a>
+                            <span class="method-name" title="listAllChannels(req, res)">listAllChannels(req, res)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Main controller method for listing out all channels currently present in
 database. Response is sent in JSON encoded array of objects containing
 channel information, HTTP 500 for server error.</p>
 
 
-  <div class='pre p1 fill-light mt0'>listAllChannels</div>
-  
-  
+                        </div>
 
-  
-  
-  
-  
-  
-  
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                        <section class="parameters">
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
+                            <h3>Parameters</h3>
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
+                            <div class="table-responsive">
+                                <table class="table">
 
-  
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-  
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
-  
+                                </table>
+                            </div>
 
-  
+                        </section>
 
-  
 
-  
 
-  
-</section>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+                        <section class="returns">
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='getchannel'>
-      getChannel
-    </h3>
-    
-    
-  </div>
-  
+                            <h3>Returns</h3>
 
-  <p>Controller method for getting information about a single channel with given
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-channelcontroller.js-getchannel">
+                            <a href="#controllers-channelcontroller.js-getchannel" class="permalink">#</a>
+                            <span class="method-name" title="getChannel(req, res)">getChannel(req, res)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Controller method for getting information about a single channel with given
 channel url. Response is sent in JSON JSON encoded object containing channel
 information, HTTP 400 for wrong url, HTTP 500 for server error.</p>
 
 
-  <div class='pre p1 fill-light mt0'>getChannel</div>
-  
-  
+                        </div>
 
-  
-  
-  
-  
-  
-  
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                        <section class="parameters">
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
+                            <h3>Parameters</h3>
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
+                            <div class="table-responsive">
+                                <table class="table">
 
-  
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-  
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
-  
+                                </table>
+                            </div>
 
-  
+                        </section>
 
-  
 
-  
 
-  
-</section>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+                        <section class="returns">
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='addchannel'>
-      addChannel
-    </h3>
-    
-    
-  </div>
-  
+                            <h3>Returns</h3>
 
-  <p>Controller method for adding a new channel with given channel name. Newly
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-channelcontroller.js-addchannel">
+                            <a href="#controllers-channelcontroller.js-addchannel" class="permalink">#</a>
+                            <span class="method-name" title="addChannel(req, res)">addChannel(req, res)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Controller method for adding a new channel with given channel name. Newly
 created channel's password and url are returned along with HTTP 200, on error
 HTTP 500 is returned instead. For every server error, logger is fed with err
 stack which shall be printed on attached [process.stdout].</p>
 
 
-  <div class='pre p1 fill-light mt0'>addChannel</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='addchannel'>
-      addChannel
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Controller method for adding a new channel with given channel name.</p>
+                        </div>
 
 
-  <div class='pre p1 fill-light mt0'>addChannel</div>
-  
-  
+                        <section class="parameters">
 
-  
-  
-  
-  
-  
-  
+                            <h3>Parameters</h3>
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                            <div class="table-responsive">
+                                <table class="table">
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
-  
+                                </table>
+                            </div>
 
-  
+                        </section>
 
-  
 
-  
 
-  
 
-  
+                        <section class="returns">
 
-  
-</section>
+                            <h3>Returns</h3>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='editchannel'>
-      editChannel
-    </h3>
-    
-    
-  </div>
-  
+                            <p><code>Void</code></p>
 
-  <p>Controller method for editing a single channel with given channel url and its
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-channelcontroller.js-editchannel">
+                            <a href="#controllers-channelcontroller.js-editchannel" class="permalink">#</a>
+                            <span class="method-name" title="editChannel(req, res)">editChannel(req, res)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Controller method for editing a single channel with given channel url and its
 corresponding password. HTTP 200 is returned if successful, otherwise HTTP
 500 for error.</p>
 
 
-  <div class='pre p1 fill-light mt0'>editChannel</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='editchannel'>
-      editChannel
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Controller method for editing a single channel with given channel url and its
-corresponding password.</p>
+                        </div>
 
 
-  <div class='pre p1 fill-light mt0'>editChannel</div>
-  
-  
+                        <section class="parameters">
 
-  
-  
-  
-  
-  
-  
+                            <h3>Parameters</h3>
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                            <div class="table-responsive">
+                                <table class="table">
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
-  
+                                </table>
+                            </div>
 
-  
+                        </section>
 
-  
 
-  
 
-  
 
-  
+                        <section class="returns">
 
-  
-</section>
+                            <h3>Returns</h3>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='removechannel'>
-      removeChannel
-    </h3>
-    
-    
-  </div>
-  
+                            <p><code>Void</code></p>
 
-  <p>Controller method for removing a single channel with given channel url and
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-channelcontroller.js-removechannel">
+                            <a href="#controllers-channelcontroller.js-removechannel" class="permalink">#</a>
+                            <span class="method-name" title="removeChannel(req, res)">removeChannel(req, res)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Controller method for removing a single channel with given channel url and
 its corresponding password. HTTP 200 is returned if successful, otherwise
 HTTP 500 for error.</p>
 
 
-  <div class='pre p1 fill-light mt0'>removeChannel</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='removechannel'>
-      removeChannel
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Controller method for removing a single channel with given channel url and
-its corresponding password.</p>
+                        </div>
 
 
-  <div class='pre p1 fill-light mt0'>removeChannel</div>
-  
-  
+                        <section class="parameters">
 
-  
-  
-  
-  
-  
-  
+                            <h3>Parameters</h3>
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                            <div class="table-responsive">
+                                <table class="table">
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='engineengine'>
-      engine/engine
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Splitter and Monitor process management engine module</p>
-<p>Exports methods</p>
-<ul>
-<li>launch</li>
-<li>stop</li>
-<li>setProcessMap</li>
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
 </ul>
-
-
-  <div class='pre p1 fill-light mt0'>engine/engine</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='setprocessmap'>
-      setProcessMap
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Function to set processMap to supplied map type</p>
-
-
-  <div class='pre p1 fill-light mt0'>setProcessMap</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>mapp</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a>)</code>
-	    Map to store all running processes
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='launch'>
-      launch
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Async function to launch splitter and monitor processes for given channel,
-returns splitter and monitor address on success, otherwise throws Error</p>
-
-
-  <div class='pre p1 fill-light mt0'>launch</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>channel</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>strings</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
-	    Array of Strings
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>params</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
-	    Array of arguments passed to function
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
-        Array of splitter and monitor address
-
-      
-    
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Throws</div>
-    <ul>
-      
-        <li>any: Will throw an error if any process fails to launch
-</li>
-      
-    </ul>
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='stop'>
-      stop
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Function to stop splitter and monitor process associated with certain channel</p>
-
-
-  <div class='pre p1 fill-light mt0'>stop</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>url</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    Unique channel url for which stop is to be called
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='onexit'>
-      onExit
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>OnExit handler, in case of fatal exit all processes are killed</p>
-
-
-  <div class='pre p1 fill-light mt0'>onExit</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='enginesplitterprocess'>
-      engine/splitterProcess
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Splitter process launcher module for engine module</p>
-<p>Exports methods</p>
-<ul>
-<li>launchSplitter</li>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
 </ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
+                                </table>
+                            </div>
 
-  <div class='pre p1 fill-light mt0'>engine/splitterProcess</div>
-  
-  
+                        </section>
 
-  
-  
-  
-  
-  
-  
 
-  
 
-  
 
-  
+                        <section class="returns">
 
-  
+                            <h3>Returns</h3>
 
-  
 
-  
+                            <p><code>Void</code></p>
 
-  
 
-  
-</section>
+                        </section>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+                    </div>
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='launchsplitter'>
-      launchSplitter
-    </h3>
-    
-    
-  </div>
-  
 
-  <p>Async function to launch splitter process for given channel, returns splitter
-process and address on success, otherwise throws Error</p>
 
+                <a id="controllers/frontendController.js"></a>
 
-  <div class='pre p1 fill-light mt0'>launchSplitter</div>
-  
-  
 
-  
-  
-  
-  
-  
-  
+                    <div class="method scope-public">
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>channel</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Channel object containing relevant information
+                        <h2 id="controllers-frontendcontroller.js-renderallchannels">
+                            <a href="#controllers-frontendcontroller.js-renderallchannels" class="permalink">#</a>
+                            <span class="method-name" title="renderAllChannels(req, res)">renderAllChannels(req, res)</span>
+                        </h2>
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
+                        <div class="description lead">
 
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
-        Contains splitter process and address
-
-      
-    
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Throws</div>
-    <ul>
-      
-        <li>any: Will throw an error if process fails to launch or log file fails
-</li>
-      
-    </ul>
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='enginemonitorprocess'>
-      engine/monitorProcess
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Monitor process launcher module for engine module</p>
-<p>Exports methods</p>
-<ul>
-<li>launchMonitor</li>
-</ul>
-
-
-  <div class='pre p1 fill-light mt0'>engine/monitorProcess</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='launchmonitor'>
-      launchMonitor
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Async function to launch monitor process for given channel, returns monitor
-process and address on success, otherwise throws Error</p>
-
-
-  <div class='pre p1 fill-light mt0'>launchMonitor</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>channel</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Channel object containing relevant information
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>splitterPort</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    Port number of splitter process
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
-        Contains monitor process and address
-
-      
-    
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Throws</div>
-    <ul>
-      
-        <li>any: Will throw an error if process fails to launch or log file fails
-</li>
-      
-    </ul>
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='enginegetport'>
-      engine/getPort
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>getPort module - generates a random port for instant use</p>
-<p>Exports methods</p>
-<ul>
-<li>getPort</li>
-</ul>
-
-
-  <div class='pre p1 fill-light mt0'>engine/getPort</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='getport'>
-      getPort
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Generates a random port via net.createServer() and returns it in a promise.</p>
-
-
-  <div class='pre p1 fill-light mt0'>getPort</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
-        promise resolving to port number
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='enginecmdgen'>
-      engine/cmdGen
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Command Generator module - Contains various methods for generating splitter &#x26;
-monitor commands for execution.</p>
-<p>Exports methods</p>
-<ul>
-<li>genCmdSplitter</li>
-<li>genCmdMonitor</li>
-</ul>
-
-
-  <div class='pre p1 fill-light mt0'>engine/cmdGen</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>strings</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>params</span> <code class='quiet'>(...any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='tagcmd'>
-      tagCmd
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Tag Method that helps generating execution command for given string &#x26; params</p>
-
-
-  <div class='pre p1 fill-light mt0'>tagCmd</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>strings</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
-	    Array of Strings
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>params</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
-	    Array of arguments passed to function
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>:
-        string with all params placed at right position
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='gencmdsplitter'>
-      genCmdSplitter
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Simply stiches together the command and params passed to this function to
-generate splitter process execution command</p>
-
-
-  <div class='pre p1 fill-light mt0'>genCmdSplitter</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>params</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
-	    Array of arguments passed to function
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>:
-        splitter process execution command
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='gencmdmonitor'>
-      genCmdMonitor
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Simply stiches together the command and params passed to this function to
-generate monitor process execution command</p>
-
-
-  <div class='pre p1 fill-light mt0'>genCmdMonitor</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>params</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
-	    Array of arguments passed to function
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>:
-        monitor process execution command
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='controllersvalidatorsfrontendcontroller'>
-      controllers/validators/frontendController
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Frontend Controller module - Contains various methods for acting as controller
-layer frontend client and backend server. Uses channelController method most
-times while capturing the output and piping it back to rendering engine.</p>
-<p>Exports methods</p>
-<ul>
-<li>renderAllChannels</li>
-<li>renderAChannel</li>
-<li>renderAddChannelForm</li>
-<li>addChannel</li>
-<li>renderEditChannelForm</li>
-<li>editChannel</li>
-<li>renderRemoveChannelForm</li>
-<li>removeChannel</li>
-</ul>
-
-
-  <div class='pre p1 fill-light mt0'>controllers/validators/frontendController</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='renderallchannels'>
-      renderAllChannels
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Main controller method for rendering all channels currently present in
+                            <p>Main controller method for rendering all channels currently present in
 database.</p>
 
 
-  <div class='pre p1 fill-light mt0'>renderAllChannels</div>
-  
-  
+                        </div>
 
-  
-  
-  
-  
-  
-  
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                        <section class="parameters">
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
+                            <h3>Parameters</h3>
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
+                            <div class="table-responsive">
+                                <table class="table">
 
-  
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-  
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
-  
+                                </table>
+                            </div>
 
-  
+                        </section>
 
-  
 
-  
 
-  
-</section>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+                        <section class="returns">
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='renderachannel'>
-      renderAChannel
-    </h3>
-    
-    
-  </div>
-  
+                            <h3>Returns</h3>
 
-  <p>Controller method for getting information about a single channel with given
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-frontendcontroller.js-renderachannel">
+                            <a href="#controllers-frontendcontroller.js-renderachannel" class="permalink">#</a>
+                            <span class="method-name" title="renderAChannel(req, res)">renderAChannel(req, res)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Controller method for getting information about a single channel with given
 channel url.</p>
 
 
-  <div class='pre p1 fill-light mt0'>renderAChannel</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='renderaddchannelform'>
-      renderAddChannelForm
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Controller method for rendering form for adding a new channel.</p>
+                        </div>
 
 
-  <div class='pre p1 fill-light mt0'>renderAddChannelForm</div>
-  
-  
+                        <section class="parameters">
 
-  
-  
-  
-  
-  
-  
+                            <h3>Parameters</h3>
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                            <div class="table-responsive">
+                                <table class="table">
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='rendereditchannelform'>
-      renderEditChannelForm
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Controller method for rendering form for editing an exisitng channel.</p>
-
-
-  <div class='pre p1 fill-light mt0'>renderEditChannelForm</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='renderremovechannelform'>
-      renderRemoveChannelForm
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Controller method for rendering remove channel form.</p>
-
-
-  <div class='pre p1 fill-light mt0'>renderRemoveChannelForm</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='controllersvalidatorschannelvalidator'>
-      controllers/validators/channelValidator
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>ChannelValidator module - Contains various middlewares for validating
-presence of appropriate data in req object and/or authorization process for
-modifying exisiting data. Should be called before actual controller methods.</p>
-<p>Exports methods</p>
-<ul>
-<li>list</li>
-<li>add</li>
-<li>frontendAdd</li>
-<li>edit</li>
-<li>remove</li>
-<li>auth</li>
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
 </ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
 
 
-  <div class='pre p1 fill-light mt0'>controllers/validators/channelValidator</div>
-  
-  
 
-  
-  
-  
-  
-  
-  
 
-  
+                        <section class="returns">
 
-  
+                            <h3>Returns</h3>
 
-  
 
-  
+                            <p><code>Void</code></p>
 
-  
 
-  
+                        </section>
 
-  
+                    </div>
 
-  
-</section>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+                    <div class="method scope-public">
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='list'>
-      list
-    </h3>
-    
-    
-  </div>
-  
+                        <h2 id="controllers-frontendcontroller.js-renderaddchannelform">
+                            <a href="#controllers-frontendcontroller.js-renderaddchannelform" class="permalink">#</a>
+                            <span class="method-name" title="renderAddChannelForm(req, res)">renderAddChannelForm(req, res)</span>
+                        </h2>
 
-  <p>Validator for listing all existing channels. Sanitizes limit and offset query
+                        <div class="description lead">
+
+                            <p>Controller method for rendering form for adding a new channel.</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-frontendcontroller.js-addchannel">
+                            <a href="#controllers-frontendcontroller.js-addchannel" class="permalink">#</a>
+                            <span class="method-name" title="addChannel(req, res)">addChannel(req, res)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Controller method for adding a new channel with given channel name.</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-frontendcontroller.js-rendereditchannelform">
+                            <a href="#controllers-frontendcontroller.js-rendereditchannelform" class="permalink">#</a>
+                            <span class="method-name" title="renderEditChannelForm(req, res)">renderEditChannelForm(req, res)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Controller method for rendering form for editing an exisitng channel.</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-frontendcontroller.js-editchannel">
+                            <a href="#controllers-frontendcontroller.js-editchannel" class="permalink">#</a>
+                            <span class="method-name" title="editChannel(req, res)">editChannel(req, res)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Controller method for editing a single channel with given channel url and its
+corresponding password.</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-frontendcontroller.js-renderremovechannelform">
+                            <a href="#controllers-frontendcontroller.js-renderremovechannelform" class="permalink">#</a>
+                            <span class="method-name" title="renderRemoveChannelForm(req, res)">renderRemoveChannelForm(req, res)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Controller method for rendering remove channel form.</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-frontendcontroller.js-removechannel">
+                            <a href="#controllers-frontendcontroller.js-removechannel" class="permalink">#</a>
+                            <span class="method-name" title="removeChannel(req, res)">removeChannel(req, res)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Controller method for removing a single channel with given channel url and
+its corresponding password.</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+
+                <a id="controllers/validators/channelValidator.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-validators-channelvalidator.js-list">
+                            <a href="#controllers-validators-channelvalidator.js-list" class="permalink">#</a>
+                            <span class="method-name" title="list(req, res, next)">list(req, res, next)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Validator for listing all existing channels. Sanitizes limit and offset query
 and proceeds to next() middleware. If limit is more than 50 items, it will
 default to 50.</p>
 
 
-  <div class='pre p1 fill-light mt0'>list</div>
-  
-  
+                        </div>
 
-  
-  
-  
-  
-  
-  
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                        <section class="parameters">
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
+                            <h3>Parameters</h3>
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>next</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-	    Express next middleware function
+                            <div class="table-responsive">
+                                <table class="table">
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-  
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.query.limit</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Numerical value for limit on items</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.query.offset</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Numerical value for offset of items</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>next</td>
+                                        <td>
+                                            <code>Function</code>
+                                        </td>
+                                        <td><ul>
+<li>Express next middleware function</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
-        
+                                </table>
+                            </div>
 
-      
-    
-  
+                        </section>
 
-  
 
-  
 
-  
 
-  
+                        <section class="returns">
 
-  
-</section>
+                            <h3>Returns</h3>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='add'>
-      add
-    </h3>
-    
-    
-  </div>
-  
 
-  <p>Request body validator for adding a new channel route. Validates the type of
+                                    <p>
+                                    </p>
+
+                                    
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-validators-channelvalidator.js-add">
+                            <a href="#controllers-validators-channelvalidator.js-add" class="permalink">#</a>
+                            <span class="method-name" title="add(req, res, next)">add(req, res, next)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Request body validator for adding a new channel route. Validates the type of
 data being sent and also performs checks on port numbers. Returns HTTP Status
 400 if wrong data is being sent otherwise calls next() middleware. Keep in
 mind that this validator is seperate from frontendAdd() since this guards the
 api rather than the frontend request.</p>
 
 
-  <div class='pre p1 fill-light mt0'>add</div>
-  
-  
+                        </div>
 
-  
-  
-  
-  
-  
-  
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                        <section class="parameters">
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
+                            <h3>Parameters</h3>
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>next</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-	    Express next middleware function
+                            <div class="table-responsive">
+                                <table class="table">
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-  
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.channelDescription</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Description about the channel</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.channelName</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Name of the channel</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.sourceAddress</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Address of the source stream</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.sourcePort</td>
+                                        <td>
+                                            <code>Number</code>
+                                        </td>
+                                        <td><ul>
+<li>Source port, should be between 0 - 65535</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.headerSize</td>
+                                        <td>
+                                            <code>Number</code>
+                                        </td>
+                                        <td><ul>
+<li>Size of headers in bytes</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.isSmartSourceClient</td>
+                                        <td>
+                                            <code>Boolean</code>
+                                        </td>
+                                        <td><ul>
+<li>Boolean flag to change modes</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>next</td>
+                                        <td>
+                                            <code>Function</code>
+                                        </td>
+                                        <td><ul>
+<li>Express next middleware function</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
-        
+                                </table>
+                            </div>
 
-      
-    
-  
+                        </section>
 
-  
 
-  
 
-  
 
-  
+                        <section class="returns">
 
-  
-</section>
+                            <h3>Returns</h3>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='frontendadd'>
-      frontendAdd
-    </h3>
-    
-    
-  </div>
-  
 
-  <p>Request body validator for adding a new channel through frontend. Validates
+                                    <p>
+                                    </p>
+
+                                    
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-validators-channelvalidator.js-frontendadd">
+                            <a href="#controllers-validators-channelvalidator.js-frontendadd" class="permalink">#</a>
+                            <span class="method-name" title="frontendAdd(req, res, next)">frontendAdd(req, res, next)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Request body validator for adding a new channel through frontend. Validates
 the type of data being sent and also performs checks on port numbers. Returns
 HTTP Status 400 if wrong data is being sent otherwise calls next() middleware
 The isSmartSourceClient is optional field because of the way HTTP form works
 with a checkbox value, nothing is sent if it's not checked.</p>
 
 
-  <div class='pre p1 fill-light mt0'>frontendAdd</div>
-  
-  
+                        </div>
 
-  
-  
-  
-  
-  
-  
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                        <section class="parameters">
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
+                            <h3>Parameters</h3>
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>next</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-	    Express next middleware function
+                            <div class="table-responsive">
+                                <table class="table">
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-  
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.channelDescription</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Description about the channel</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.channelName</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Name of the channel</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.sourceAddress</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Address of the source stream</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.sourcePort</td>
+                                        <td>
+                                            <code>Number</code>
+                                        </td>
+                                        <td><ul>
+<li>Source port, should be between 0 - 65535</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.headerSize</td>
+                                        <td>
+                                            <code>Number</code>
+                                        </td>
+                                        <td><ul>
+<li>Size of headers in bytes</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.isSmartSourceClient</td>
+                                        <td>
+                                            <code>Boolean</code>
+                                        </td>
+                                        <td><ul>
+<li>Boolean flag to change modes (optional)</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>next</td>
+                                        <td>
+                                            <code>Function</code>
+                                        </td>
+                                        <td><ul>
+<li>Express next middleware function</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
-        
+                                </table>
+                            </div>
 
-      
-    
-  
+                        </section>
 
-  
 
-  
 
-  
 
-  
+                        <section class="returns">
 
-  
-</section>
+                            <h3>Returns</h3>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='edit'>
-      edit
-    </h3>
-    
-    
-  </div>
-  
 
-  <p>Request body validator for editing channel route. Checks for channelNewName,
+                                    <p>
+                                    </p>
+
+                                    
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-validators-channelvalidator.js-edit">
+                            <a href="#controllers-validators-channelvalidator.js-edit" class="permalink">#</a>
+                            <span class="method-name" title="edit(req, res, next)">edit(req, res, next)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Request body validator for editing channel route. Checks for channelNewName,
 channelNewDescription, channelUrl and channelPassword are sent with the
 request and calls next(), otherwise denies the request by returning HTTP 400.
 Does not performs any kind of authorization, needs another validator for that</p>
 
 
-  <div class='pre p1 fill-light mt0'>edit</div>
-  
-  
+                        </div>
 
-  
-  
-  
-  
-  
-  
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                        <section class="parameters">
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
+                            <h3>Parameters</h3>
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>next</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-	    Express next middleware function
+                            <div class="table-responsive">
+                                <table class="table">
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-  
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.channelNewDescription</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>New description about the channel</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.channelNewName</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>New name of the channel</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.channelUrl</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Url of the channel to be edited</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.channelPassword</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Password of the channel to be edited</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>next</td>
+                                        <td>
+                                            <code>Function</code>
+                                        </td>
+                                        <td><ul>
+<li>Express next middleware function</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
-        
+                                </table>
+                            </div>
 
-      
-    
-  
+                        </section>
 
-  
 
-  
 
-  
 
-  
+                        <section class="returns">
 
-  
-</section>
+                            <h3>Returns</h3>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='remove'>
-      remove
-    </h3>
-    
-    
-  </div>
-  
 
-  <p>Request body validator for removing an existing channel route. Checks for
+                                    <p>
+                                    </p>
+
+                                    
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-validators-channelvalidator.js-remove">
+                            <a href="#controllers-validators-channelvalidator.js-remove" class="permalink">#</a>
+                            <span class="method-name" title="remove(req, res, next)">remove(req, res, next)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Request body validator for removing an existing channel route. Checks for
 channelUrl and channelPassword are sent with the request and calls next(),
 denies the request otherwise by returning HTTP 400. Does not performs any
 kind of authorization, needs another validator for that.</p>
 
 
-  <div class='pre p1 fill-light mt0'>remove</div>
-  
-  
+                        </div>
 
-  
-  
-  
-  
-  
-  
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                        <section class="parameters">
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
+                            <h3>Parameters</h3>
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>next</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-	    Express next middleware function
+                            <div class="table-responsive">
+                                <table class="table">
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-  
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.channelUrl</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Url of the channel to be removed</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.channelPassword</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Password of the channel to be removed</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>next</td>
+                                        <td>
+                                            <code>Function</code>
+                                        </td>
+                                        <td><ul>
+<li>Express next middleware function</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
-        
+                                </table>
+                            </div>
 
-      
-    
-  
+                        </section>
 
-  
 
-  
 
-  
 
-  
+                        <section class="returns">
 
-  
-</section>
+                            <h3>Returns</h3>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='auth'>
-      auth
-    </h3>
-    
-    
-  </div>
-  
 
-  <p>Authorization middleware - assumes channelUrl is already present in request
+                                    <p>
+                                    </p>
+
+                                    
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-validators-channelvalidator.js-auth">
+                            <a href="#controllers-validators-channelvalidator.js-auth" class="permalink">#</a>
+                            <span class="method-name" title="auth(req, res, next)">auth(req, res, next)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Authorization middleware - assumes channelUrl is already present in request
 and tries to locate and authorize appropirate channel if possible, otherwise
 denies the request and returns HTTP 401.</p>
 
 
-  <div class='pre p1 fill-light mt0'>auth</div>
-  
-  
+                        </div>
 
-  
-  
-  
-  
-  
-  
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express request object
+                        <section class="parameters">
 
-          </div>
-          
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>req</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express request object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.channelUrl</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Url of the channel</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>req.body.channelPassword</td>
+                                        <td>
+                                            <code>String</code>
+                                        </td>
+                                        <td><ul>
+<li>Password of the channel</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>res</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Express response object</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>next</td>
+                                        <td>
+                                            <code>Function</code>
+                                        </td>
+                                        <td><ul>
+<li>Express next middleware function</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                    </p>
+
+                                    
+
+
+
+                        </section>
+
+                    </div>
+
+
+
+                <a id="engine/cmdGen.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="engine-cmdgen.js-tagcmd">
+                            <a href="#engine-cmdgen.js-tagcmd" class="permalink">#</a>
+                            <span class="method-name" title="tagCmd(strings, params)">tagCmd(strings, params)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Tag Method that helps generating execution command for given string &amp; params</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>strings</td>
+                                        <td>
+                                            <code>Array</code>
+                                        </td>
+                                        <td><ul>
+<li>Array of Strings</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>params</td>
+                                        <td>
+                                            <code>Array</code>
+                                        </td>
+                                        <td><ul>
+<li>Array of arguments passed to function</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>String</code>
+                                    </p>
+
+                                    <p>string with all params placed at right position</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="engine-cmdgen.js-gencmdsplitter">
+                            <a href="#engine-cmdgen.js-gencmdsplitter" class="permalink">#</a>
+                            <span class="method-name" title="genCmdSplitter(params)">genCmdSplitter(params)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Simply stiches together the command and params passed to this function to
+generate splitter process execution command</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>params</td>
+                                        <td>
+                                            <code>Array</code>
+                                        </td>
+                                        <td><ul>
+<li>Array of arguments passed to function</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>String</code>
+                                    </p>
+
+                                    <p>splitter process execution command</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="engine-cmdgen.js-gencmdmonitor">
+                            <a href="#engine-cmdgen.js-gencmdmonitor" class="permalink">#</a>
+                            <span class="method-name" title="genCmdMonitor(params)">genCmdMonitor(params)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Simply stiches together the command and params passed to this function to
+generate monitor process execution command</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>params</td>
+                                        <td>
+                                            <code>Array</code>
+                                        </td>
+                                        <td><ul>
+<li>Array of arguments passed to function</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>String</code>
+                                    </p>
+
+                                    <p>monitor process execution command</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+
+                <a id="engine/engine.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="engine-engine.js-setprocessmap">
+                            <a href="#engine-engine.js-setprocessmap" class="permalink">#</a>
+                            <span class="method-name" title="setProcessMap(mapp)">setProcessMap(mapp)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Function to set processMap to supplied map type</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>mapp</td>
+                                        <td>
+                                            <code>Map</code>
+                                        </td>
+                                        <td><ul>
+<li>Map to store all running processes</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="engine-engine.js-launch">
+                            <a href="#engine-engine.js-launch" class="permalink">#</a>
+                            <span class="method-name" title="launch(strings, params)">launch(strings, params)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Async function to launch splitter and monitor processes for given channel,
+returns splitter and monitor address on success, otherwise throws Error</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>strings</td>
+                                        <td>
+                                            <code>Array</code>
+                                        </td>
+                                        <td><ul>
+<li>Array of Strings</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>params</td>
+                                        <td>
+                                            <code>Array</code>
+                                        </td>
+                                        <td><ul>
+<li>Array of arguments passed to function</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>Array</code>
+                                    </p>
+
+                                    <p>Array of splitter and monitor address</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="engine-engine.js-stop">
+                            <a href="#engine-engine.js-stop" class="permalink">#</a>
+                            <span class="method-name" title="stop(url)">stop(url)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Function to stop splitter and monitor process associated with certain channel</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>url</td>
+                                        <td>
+                                            <code>string</code>
+                                        </td>
+                                        <td><ul>
+<li>Unique channel url for which stop is to be called</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="engine-engine.js-onexit">
+                            <a href="#engine-engine.js-onexit" class="permalink">#</a>
+                            <span class="method-name" title="onExit()">onExit()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>OnExit handler, in case of fatal exit all processes are killed</p>
+
+
+                        </div>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+
+                <a id="engine/getPort.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="engine-getport.js-getport">
+                            <a href="#engine-getport.js-getport" class="permalink">#</a>
+                            <span class="method-name" title="getPort()">getPort()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Generates a random port via net.createServer() and returns it in a promise.</p>
+
+
+                        </div>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>Promise</code>
+                                    </p>
+
+                                    <p>promise resolving to port number</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+
+                <a id="engine/monitorProcess.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="engine-monitorprocess.js-launchmonitor">
+                            <a href="#engine-monitorprocess.js-launchmonitor" class="permalink">#</a>
+                            <span class="method-name" title="launchMonitor(channel, splitterPort)">launchMonitor(channel, splitterPort)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Async function to launch monitor process for given channel, returns monitor
+process and address on success, otherwise throws Error</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>channel</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Channel object containing relevant information</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>splitterPort</td>
+                                        <td>
+                                            <code>Number</code>
+                                        </td>
+                                        <td><ul>
+<li>Port number of splitter process</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>Object</code>
+                                    </p>
+
+                                    <p>Contains monitor process and address</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+
+                <a id="engine/splitterProcess.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="engine-splitterprocess.js-launchsplitter">
+                            <a href="#engine-splitterprocess.js-launchsplitter" class="permalink">#</a>
+                            <span class="method-name" title="launchSplitter(channel)">launchSplitter(channel)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Async function to launch splitter process for given channel, returns splitter
+process and address on success, otherwise throws Error</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>channel</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Channel object containing relevant information</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>Object</code>
+                                    </p>
+
+                                    <p>Contains splitter process and address</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+
+            </div>
+
         </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Express response object
 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>next</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-	    Express next middleware function
-
-          </div>
-          
-        </div>
-      
     </div>
-  
 
-  
+</div>
 
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
-        
+<footer class="bs-footer">
 
-      
-    
-  
+    <div class="container">
 
-  
+        <p>Documentation generated with <a href="https://github.com/neogeek/doxdox">doxdox</a>.</p>
 
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-      </div>
     </div>
-  <script src='assets/anchor.js'></script>
-  <script src='assets/split.js'></script>
-  <script src='assets/site.js'></script>
+
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+
+(function () {
+
+    'use strict';
+
+    var headerHeight = $('.jumbotron').outerHeight(true),
+        $backToTop = $('.back-to-top');
+
+    function handleScrollEvent() {
+
+        if (window.scrollY > headerHeight && $backToTop.not('.visible')) {
+
+            $backToTop.addClass('visible');
+
+        } else if (window.scrollY < headerHeight && $backToTop.is('.visible')) {
+
+            $backToTop.removeClass('visible');
+
+        }
+
+    }
+
+    $('pre code:not(.hljs)').each(function () {
+        hljs.highlightBlock(this);
+    });
+
+    var $searchInput = $('#search-methods');
+    var $methodLinks = $('.method-link');
+    var $methodNames = $('.method .method-name');
+
+    var urlQuery = window.location.search.match(/q=([^&]+)/);
+
+    $searchInput.on('keyup', function (e) {
+
+        var query = new RegExp(e.target.value.replace(' ', '|'), 'ig');
+
+        $methodLinks.each(function () {
+
+            var $this = $(this);
+
+            if (!$this.text().match(query)) {
+
+                $this.hide();
+
+            } else {
+
+                $this.show();
+
+            }
+
+        });
+
+        $methodNames.each(function () {
+
+            var $this = $(this);
+
+            if (!$this.text().match(query)) {
+
+                $this.closest('.method').hide();
+
+            } else {
+
+                $this.closest('.method').show();
+
+            }
+
+        });
+
+        window.history.replaceState({}, '', window.location.pathname + '?q=' + e.target.value);
+
+    });
+
+    $searchInput.on('search', function () {
+
+        $searchInput.trigger('keyup');
+
+    });
+
+    if (urlQuery && urlQuery.length > 1) {
+
+        $searchInput.val(urlQuery[1]).trigger('keyup');
+
+    }
+
+    $(window).on('scroll', handleScrollEvent);
+
+    handleScrollEvent();
+
+})();
+
+</script>
+
 </body>
 </html>

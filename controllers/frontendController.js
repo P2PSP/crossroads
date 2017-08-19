@@ -16,6 +16,8 @@
  * @module controllers/validators/frontendController
  */
 
+'use strict';
+
 const ctrl = require('./channelController');
 
 class CaptureResponse {

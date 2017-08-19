@@ -1,3 +1,5 @@
+'use strict';
+
 const createTable = `CREATE TABLE IF NOT EXISTS channels (
 	name            TEXT    NOT NULL,
 	password	      INTEGER NOT NULL,

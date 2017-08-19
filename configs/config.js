@@ -10,6 +10,8 @@
  * @module configs/config
  */
 
+'use strict';
+
 /**
  * Default port number for running Server. Default value is 3000 which is picked
  * if there is no PORT env variable set.

@@ -9,6 +9,8 @@
  * @module engine/cmdGen
  */
 
+'use strict';
+
 /**
  * Tag Method that helps generating execution command for given string & params
  *

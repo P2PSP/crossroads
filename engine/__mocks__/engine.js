@@ -1,3 +1,5 @@
+'use strict';
+
 let processMap = new Map();
 
 const setProcessMap = mapp => {

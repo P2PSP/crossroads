@@ -1,3 +1,5 @@
+'use strict';
+
 const logger = require('kaho');
 const Q = require('./Q');
 

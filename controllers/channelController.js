@@ -13,6 +13,8 @@
  * @module controllers/validators/channelController
  */
 
+'use strict';
+
 const crypto = require('crypto');
 const argon2 = require('argon2');
 const logger = require('kaho');
@@ -83,7 +85,7 @@ const addChannel = async (req, res) => {
       password: hash
     };
     const splitterMonitor = await engine.launch(channel);
-    channel.splitterAddr = splitterMonitor[0];
+    channel.splitterAddress = splitterMonitor[0];
     if (db.addChannel(channel)) {
       const response = {
         channelUrl: channel.url,

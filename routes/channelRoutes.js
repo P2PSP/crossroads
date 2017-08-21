@@ -1,3 +1,5 @@
+'use strict';
+
 const router = require('express').Router();
 const bodyParser = require('body-parser');
 const cntrl = require('../controllers/channelController');

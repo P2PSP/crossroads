@@ -9,6 +9,8 @@
  * @module engine/engine
  */
 
+'use strict';
+
 const onExit = require('signal-exit');
 const { launchSplitter } = require('./splitterProcess');
 const { launchMonitor } = require('./monitorProcess');

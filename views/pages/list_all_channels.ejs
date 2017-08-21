@@ -1,0 +1,28 @@
+<%- include('../partials/header'); %>
+
+<% if(status === 200) { %>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">URL</th>
+        <th scope="col">Description</th>
+        <th scope="col">Splitter</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach(function(channel) { %>
+        <tr>
+          <td><%= channel.name %></td>
+          <td><a href="/<%= channel.url %>"><%= channel.url %><a></td>
+          <td><%= channel.description %></td>
+          <td><%= channel.splitterAddress %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+<% } else { %>
+  <div class="background-error margin-l padding-xs color-white">Error occurred while processing your request</div>
+<% } %>
+
+<%- include('../partials/footer'); %>

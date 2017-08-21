@@ -7,6 +7,8 @@
  * @module engine/splitterProcess
  */
 
+'use strict';
+
 const fs = require('fs');
 const os = require('os');
 const logger = require('kaho');

@@ -7,6 +7,8 @@
  * @module engine/getPort
  */
 
+'use strict';
+
 const net = require('net');
 const config = require('./../configs/config');
 

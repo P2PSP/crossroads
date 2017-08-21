@@ -1,11 +1,12 @@
 {
   "env": {
-    "node" : true,
-    "es6"  : true,
-	"jest" : true
+    "node": true,
+    "jest": true
   },
-  "plugins": [
-   ],
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+  "plugins": [],
   "rules": {
     "accessor-pairs": "error",
     "array-bracket-spacing": [2, "never"],
@@ -57,7 +58,7 @@
     "no-loop-func": "error",
     "no-mixed-spaces-and-tabs": 2,
     "no-mixed-requires": "error",
-    "no-multiple-empty-lines": ["error", {"max": 3}],
+    "no-multiple-empty-lines": ["error", { "max": 3 }],
     "no-multi-spaces": "error",
     "no-new": "error",
     "no-new-require": "error",
@@ -82,7 +83,10 @@
     "no-var": 1,
     "no-void": "error",
     "no-use-before-define": [2, "nofunc"],
-    "object-property-newline": ["error", { "allowMultiplePropertiesPerLine": true }],
+    "object-property-newline": [
+      "error",
+      { "allowMultiplePropertiesPerLine": true }
+    ],
     "object-shorthand": 1,
     "prefer-const": 1,
     "prefer-rest-params": 1,
@@ -90,7 +94,7 @@
     "semi": [2, "always"],
     "semi-spacing": "error",
     "space-before-function-paren": ["error", "never"],
-    "space-infix-ops": ["error", {"int32Hint": false}],
+    "space-infix-ops": ["error", { "int32Hint": false }],
     "space-in-parens": ["error", "never"],
     "space-unary-ops": 2,
     "spaced-comment": ["error", "always"],

@@ -4,19 +4,23 @@
   <table>
     <thead>
       <tr>
-        <th scope="col">Name</th>
-        <th scope="col">URL</th>
-        <th scope="col">Description</th>
-        <th scope="col">Splitter</th>
+        <th scope="col">Channel Name</th>
+        <th scope="col">Channel Description</th>
+        <th scope="col">Splitter Address</th>
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
       <% data.forEach(function(channel) { %>
         <tr>
           <td><%= channel.name %></td>
-          <td><a href="/<%= channel.url %>"><%= channel.url %><a></td>
           <td><%= channel.description %></td>
           <td><%= channel.splitterAddress %></td>
+          <td>
+            <a href="/<%= channel.url %>" class="button button-xs">View</a>
+            <a href="/edit?channelUrl=<%= channel.url %>" class="button button-xs">Edit</a>
+            <a href="/remove?channelUrl=<%= channel.url %>" class="button button-xs">Delete</a>
+          </td>
         </tr>
       <% }); %>
     </tbody>

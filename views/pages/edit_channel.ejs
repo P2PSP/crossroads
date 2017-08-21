@@ -13,7 +13,7 @@
   <form method="POST" action="/edit">
     <input type="text" name="channelNewName" placeholder="Enter channel's new name">
     <textarea type="textarea" name="channelNewDescription" placeholder="Enter channel's new description" rows="7"></textarea>
-    <input type="text" name="channelUrl" placeholder="Enter channel url">
+    <input type="text" name="channelUrl" placeholder="Enter channel url" value="<%= channelUrl %>">
     <input type="password" name="channelPassword" placeholder="Enter channel password">
     <button type="submit" class="button">Submit</button>
   </form>

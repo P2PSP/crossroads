@@ -72,7 +72,8 @@ const renderAChannel = (req, res) => {
   ctrl.getChannel(req, cres);
   const channel = {
     status: cres.getStatus(),
-    data: cres.getJson()
+    data: cres.getJson(),
+    channelUrl: req.params.channelUrl
   };
   res.render('pages/get_channel', channel);
 };
@@ -114,7 +115,7 @@ const addChannel = async (req, res) => {
  * @param {Object} res - Express response object
  */
 const renderEditChannelForm = (req, res) => {
-  const options = { containsResponse: false };
+  const options = { containsResponse: false, channelUrl: req.query.channelUrl };
   res.render('pages/edit_channel', options);
 };
 
@@ -139,7 +140,7 @@ const editChannel = (req, res) => {
  * @param {Object} res - Express response object
  */
 const renderRemoveChannelForm = (req, res) => {
-  const options = { containsResponse: false };
+  const options = { containsResponse: false, channelUrl: req.query.channelUrl };
   res.render('pages/remove_channel', options);
 };
 

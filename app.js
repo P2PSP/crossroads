@@ -23,5 +23,5 @@ app.use('/channels', channelApi);
 app.use('/', frontend);
 
 app.listen(config.port, () => {
-  logger('INFO', 'Starting P2PSP server');
+  logger('INFO', 'Starting P2PSP server at http://localhost:' + config.port);
 });

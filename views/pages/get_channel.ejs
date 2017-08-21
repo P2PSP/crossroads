@@ -4,9 +4,10 @@
   <table>
     <thead>
       <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Description</th>
-        <th scope="col">Splitter</th>
+        <th scope="col">Channel Name</th>
+        <th scope="col">Channel Description</th>
+        <th scope="col">Splitter Address</th>
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -14,6 +15,10 @@
         <td><%= data.name %></td>
         <td><%= data.description %></td>
         <td><%= data.splitterAddress %></td>
+        <td>
+          <a href="/edit?channelUrl=<%= channelUrl %>" class="button button-xs">Edit</a>
+          <a href="/remove?channelUrl=<%= channelUrl %>" class="button button-xs">Delete</a>
+        </td>
       </tr>
     </tbody>
   </table>

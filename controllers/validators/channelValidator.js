@@ -156,11 +156,11 @@ const edit = (req, res, next) => {
     typeof req.body.channelUrl !== 'string' ||
     typeof req.body.channelPassword !== 'string'
   ) {
+    res.sendStatus(400);
+  } else {
     req.body.channelNewName = req.body.channelNewName.substr(0, 256);
     req.body.channelNewName = req.body.channelNewName.trim();
     req.body.channelNewDescription = req.body.channelNewDescription.trim();
-    res.sendStatus(400);
-  } else {
     next();
   }
 };

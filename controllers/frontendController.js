@@ -129,7 +129,11 @@ const renderEditChannelForm = (req, res) => {
 const editChannel = (req, res) => {
   const cres = new CaptureResponse();
   ctrl.editChannel(req, cres);
-  const data = { status: cres.getStatus(), containsResponse: true };
+  const data = {
+    status: cres.getStatus(),
+    containsResponse: true,
+    channelUrl: ''
+  };
   res.render('pages/edit_channel', data);
 };
 
@@ -154,7 +158,11 @@ const renderRemoveChannelForm = (req, res) => {
 const removeChannel = (req, res) => {
   const cres = new CaptureResponse();
   ctrl.removeChannel(req, cres);
-  const data = { status: cres.getStatus(), containsResponse: true };
+  const data = {
+    status: cres.getStatus(),
+    containsResponse: true,
+    channelUrl: ''
+  };
   res.render('pages/remove_channel', data);
 };
 

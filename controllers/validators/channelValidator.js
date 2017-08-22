@@ -19,6 +19,7 @@
 const argon2 = require('argon2');
 const db = require('../../models/channelModel');
 const logger = require('kaho');
+const net = require('net');
 
 /**
  * Validator for listing all existing channels. Sanitizes limit and offset query
@@ -36,7 +37,7 @@ const list = (req, res, next) => {
   req.query.limit = parseInt(req.query.limit) || undefined;
   req.query.offset = parseInt(req.query.offset) || undefined;
 
-  if (req.query.limit != undefined && req.query.limit > 50) {
+  if (req.query.limit !== undefined && req.query.limit > 50) {
     req.query.limit = 50;
   }
   next();
@@ -65,6 +66,7 @@ const add = (req, res, next) => {
     typeof req.body.channelDescription !== 'string' ||
     typeof req.body.channelName !== 'string' ||
     typeof req.body.sourceAddress !== 'string' ||
+    net.isIP(req.body.sourceAddress) === 0 ||
     typeof req.body.sourcePort !== 'number' ||
     req.body.sourcePort > 65535 ||
     req.body.sourcePort < 0 ||
@@ -74,6 +76,9 @@ const add = (req, res, next) => {
   ) {
     res.sendStatus(400);
   } else {
+    req.body.channelName = req.body.channelName.substr(0, 256);
+    req.body.channelName = req.body.channelName.trim();
+    req.body.channelDescription = req.body.channelDescription.trim();
     next();
   }
 };
@@ -101,6 +106,7 @@ const frontendAdd = (req, res, next) => {
     typeof req.body.channelDescription !== 'string' ||
     typeof req.body.channelName !== 'string' ||
     typeof req.body.sourceAddress !== 'string' ||
+    net.isIP(req.body.sourceAddress) === 0 ||
     typeof req.body.sourcePort !== 'string' ||
     typeof req.body.headerSize !== 'string'
   ) {
@@ -117,6 +123,9 @@ const frontendAdd = (req, res, next) => {
     ) {
       res.sendStatus(400);
     } else {
+      req.body.channelName = req.body.channelName.substr(0, 256);
+      req.body.channelName = req.body.channelName.trim();
+      req.body.channelDescription = req.body.channelDescription.trim();
       req.body.isSmartSourceClient = req.body.isSmartSourceClient
         ? true
         : false;
@@ -147,6 +156,9 @@ const edit = (req, res, next) => {
     typeof req.body.channelUrl !== 'string' ||
     typeof req.body.channelPassword !== 'string'
   ) {
+    req.body.channelNewName = req.body.channelNewName.substr(0, 256);
+    req.body.channelNewName = req.body.channelNewName.trim();
+    req.body.channelNewDescription = req.body.channelNewDescription.trim();
     res.sendStatus(400);
   } else {
     next();

@@ -17,6 +17,7 @@ const { spawn } = require('child_process');
 const { getPort } = require('./getPort');
 const config = require('./../configs/config');
 const { genCmdSplitter } = require('./cmdGen');
+const db = require('./../models/channelModel');
 
 /**
  * Async function to launch splitter process for given channel, returns splitter
@@ -50,10 +51,16 @@ const launchSplitter = async channel => {
     stdio: ['ignore', splitterFD, splitterFD]
   });
   splitterProcess.on('error', err => {
-    logger('WARNING', channel.name + ': splitter error', err);
+    setTimeout(() => {
+      db.removeChannel(channel.url);
+    }, 1000);
+    logger('WARNING', channel.name + ': splitter error', err, name);
   });
   splitterProcess.on('exit', code => {
-    logger('INFO', channel.name + ': splitter closed', code);
+    setTimeout(() => {
+      db.removeChannel(channel.url);
+    }, 1000);
+    logger('INFO', channel.name + ': splitter closed', code, name);
   });
 
   return {

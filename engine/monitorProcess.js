@@ -44,10 +44,10 @@ const launchMonitor = async (channel, splitterPort) => {
     stdio: ['ignore', monitorFD, monitorFD]
   });
   monitorProcess.on('error', err => {
-    logger('Warning', channel.name + ': monitor error', err);
+    logger('Warning', channel.name + ': monitor error', err, name);
   });
   monitorProcess.on('exit', code => {
-    logger('INFO', channel.name + ': monitor closed', code);
+    logger('INFO', channel.name + ': monitor closed', code, name);
   });
 
   return {

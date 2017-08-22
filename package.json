@@ -15,6 +15,7 @@
   "author": "agauniyal <agauniyal@outlook.com>",
   "license": "MIT",
   "devDependencies": {
+    "doxdox": "^2.0.3",
     "jest": "^20.0.4",
     "nodemon": "^1.11.0",
     "supertest": "^3.0.0"
@@ -23,7 +24,6 @@
     "argon2": "^0.16.1",
     "better-sqlite3": "^3.1.1",
     "body-parser": "^1.17.2",
-    "doxdox": "^2.0.3",
     "ejs": "^2.5.7",
     "express": "^4.15.3",
     "helmet": "^3.8.1",

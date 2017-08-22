@@ -6,6 +6,9 @@
  *  - splitterBin
  *  - splitterAddress
  *  - monitorBin
+
+ * And following methods
+ *  - checkBinaries
  *
  * @module configs/config
  */

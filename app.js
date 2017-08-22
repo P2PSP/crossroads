@@ -11,7 +11,8 @@ const db = require('./models/channelModel');
 
 config.checkBinaries();
 
-db.setDB(new Database('p2psp_rest_server.db'));
+const stamp = new Date().getTime();
+db.setDB(new Database('database-' + stamp + '.db'));
 db.start();
 
 const app = express();

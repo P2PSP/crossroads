@@ -30,11 +30,14 @@ const db = require('./../models/channelModel');
 const launchSplitter = async channel => {
   const cmdParams = [
     channel.sourceAddress,
-    channel.sourcePort,
+    0,
     0,
     channel.name,
     channel.headerSize
   ];
+  cmdParams[1] = channel.isSmartSourceClient
+    ? await getPort()
+    : channel.sourcePort;
   cmdParams[2] = await getPort();
 
   const stamp = new Date().getTime();
@@ -65,7 +68,8 @@ const launchSplitter = async channel => {
 
   return {
     process: splitterProcess,
-    address: config.splitterAddress + ':' + cmdParams[2]
+    address: config.splitterAddress + ':' + cmdParams[2],
+    listenPort: channel.isSmartSourceClient ? cmdParams[1] : undefined
   };
 };
 

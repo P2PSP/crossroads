@@ -6,8 +6,6 @@ const createTable = `CREATE TABLE IF NOT EXISTS channels (
 	url	            TEXT    NOT NULL UNIQUE,
 	splitterAddress TEXT    NOT NULL,
   description	    TEXT    NOT NULL,
-  sourceAddress   TEXT    NOT NULL,
-  sourcePort      INTEGER NOT NULL,
   headerSize      INTEGER NOT NULL,
   visible         INTEGER NOT NULL DEFAULT 1
 );`;
@@ -21,8 +19,7 @@ const selectChannel = `SELECT name, splitterAddress, description
   FROM channels WHERE url = (?)`;
 
 const insertChannel = `INSERT INTO channels VALUES (
-  @name, @password, @url, @splitterAddress, @description,
-  @sourceAddress, @sourcePort, @headerSize, 1 )`;
+  @name, @password, @url, @splitterAddress, @description, @headerSize, 1 )`;
 
 const updateChannel = `UPDATE channels
   SET name = @name, description = @description

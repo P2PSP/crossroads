@@ -62,24 +62,35 @@ const list = (req, res, next) => {
  * @returns {undefined}
  */
 const add = (req, res, next) => {
+  // required checks
   if (
     typeof req.body.channelDescription !== 'string' ||
     typeof req.body.channelName !== 'string' ||
-    typeof req.body.sourceAddress !== 'string' ||
-    net.isIP(req.body.sourceAddress) === 0 ||
-    typeof req.body.sourcePort !== 'number' ||
-    req.body.sourcePort > 65535 ||
-    req.body.sourcePort < 0 ||
     typeof req.body.headerSize !== 'number' ||
     req.body.headerSize < 0 ||
     typeof req.body.isSmartSourceClient !== 'boolean'
   ) {
     res.sendStatus(400);
-  } else {
+    return;
+  }
+
+  // sourceAddress and sourcePort depend on isSmartSouceClient. So it either
+  // needs to be true, or if it is false, all other conditions must hold true.
+  if (
+    req.body.isSmartSourceClient ||
+    (!req.body.isSmartSourceClient &&
+      typeof req.body.sourceAddress === 'string' &&
+      net.isIP(req.body.sourceAddress) !== 0 &&
+      typeof req.body.sourcePort !== 'number' &&
+      req.body.sourcePort > 65535 &&
+      req.body.sourcePort < 0)
+  ) {
     req.body.channelName = req.body.channelName.substr(0, 256);
     req.body.channelName = req.body.channelName.trim();
     req.body.channelDescription = req.body.channelDescription.trim();
     next();
+  } else {
+    res.sendStatus(400);
   }
 };
 
@@ -102,35 +113,46 @@ const add = (req, res, next) => {
  * @returns {undefined}
  */
 const frontendAdd = (req, res, next) => {
+  // required checks
   if (
     typeof req.body.channelDescription !== 'string' ||
     typeof req.body.channelName !== 'string' ||
-    typeof req.body.sourceAddress !== 'string' ||
-    net.isIP(req.body.sourceAddress) === 0 ||
-    typeof req.body.sourcePort !== 'string' ||
     typeof req.body.headerSize !== 'string'
   ) {
     res.sendStatus(400);
-  } else {
+    return;
+  }
+
+  req.body.headerSize = parseInt(req.body.headerSize, 10);
+  req.body.isSmartSourceClient = req.body.isSmartSourceClient ? true : false;
+  let isValidReq = req.body.isSmartSourceClient;
+
+  // if not SmartSourceClient and all conditions true, set valid request = true
+  if (
+    !req.body.isSmartSourceClient &&
+    typeof req.body.sourceAddress === 'string' &&
+    net.isIP(req.body.sourceAddress) !== 0 &&
+    typeof req.body.sourcePort !== 'string'
+  ) {
     req.body.sourcePort = parseInt(req.body.sourcePort, 10);
-    req.body.headerSize = parseInt(req.body.headerSize, 10);
     if (
-      isNaN(req.body.sourcePort) ||
-      req.body.sourcePort > 65535 ||
-      req.body.sourcePort < 0 ||
-      isNaN(req.body.headerSize) ||
-      req.body.headerSize < 0
+      !isNaN(req.body.sourcePort) ||
+      req.body.sourcePort < 65535 ||
+      req.body.sourcePort > 0 ||
+      !isNaN(req.body.headerSize) ||
+      req.body.headerSize >= 0
     ) {
-      res.sendStatus(400);
-    } else {
-      req.body.channelName = req.body.channelName.substr(0, 256);
-      req.body.channelName = req.body.channelName.trim();
-      req.body.channelDescription = req.body.channelDescription.trim();
-      req.body.isSmartSourceClient = req.body.isSmartSourceClient
-        ? true
-        : false;
-      next();
+      isValidReq = true;
     }
+  }
+
+  if (isValidReq) {
+    req.body.channelName = req.body.channelName.substr(0, 256);
+    req.body.channelName = req.body.channelName.trim();
+    req.body.channelDescription = req.body.channelDescription.trim();
+    next();
+  } else {
+    res.sendStatus(400);
   }
 };
 

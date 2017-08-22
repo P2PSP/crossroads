@@ -9,6 +9,8 @@ const channelApi = require('./routes/channelRoutes');
 const frontend = require('./routes/frontendRoutes');
 const db = require('./models/channelModel');
 
+config.checkBinaries();
+
 db.setDB(new Database('p2psp_rest_server.db'));
 db.start();
 

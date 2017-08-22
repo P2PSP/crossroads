@@ -12,6 +12,9 @@
 
 'use strict';
 
+const fs = require('fs');
+const logger = require('kaho');
+
 /**
  * Default port number for running Server. Default value is 3000 which is picked
  * if there is no PORT env variable set.
@@ -48,9 +51,24 @@ const splitterBin = process.env.SPLITTERBIN;
 */
 const monitorBin = process.env.MONITORBIN;
 
+/**
+ * Method to check if proper P2PSP core binaries are present on supplied path.
+ * Exits with code 1 if checks fail.
+ */
+const checkBinaries = () => {
+  if (
+    !fs.existsSync(splitterBin + '/splitter') ||
+    !fs.existsSync(monitorBin + '/monitor')
+  ) {
+    logger('ERROR', 'Could not find P2PSP binaries!!', splitterBin, monitorBin);
+    process.exit(1);
+  }
+};
+
 module.exports = {
   port,
   splitterBin,
   splitterAddress,
-  monitorBin
+  monitorBin,
+  checkBinaries
 };

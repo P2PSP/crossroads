@@ -46,7 +46,7 @@ const launch = async channel => {
     monitor: monitor.process
   });
 
-  return [splitter.address, monitor.address];
+  return [splitter.address, monitor.address, splitter.listenPort];
 };
 
 /**

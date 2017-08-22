@@ -10,9 +10,7 @@
           <th scope="col">Password</th>
           <th scope="col">Splitter Address</th>
           <th scope="col">Monitor Address</th>
-          <% if(data.listenPort !== undefined) { %>
-            <th scope="col">Listen Port</th>
-          <% } %>
+          <th scope="col">Listen Port</th>
         </tr>
       </thead>
       <tbody>
@@ -21,9 +19,7 @@
           <td><%= data.channelPassword %></td>
           <td><%= data.splitterAddress %></td>
           <td><%= data.monitorAddress %></td>
-          <% if(data.listenPort !== undefined) { %>
-            <td><%= data.listenPort %></td>
-          <% } %>
+          <td><%= data.listenPort %></td>
         </tr>
       </tbody>
     </table>

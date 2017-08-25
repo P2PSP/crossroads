@@ -81,17 +81,26 @@ const addChannel = async (req, res) => {
       sourceAddress: req.body.sourceAddress,
       sourcePort: req.body.sourcePort,
       headerSize: req.body.headerSize,
+      splitterPort: req.body.splitterPort,
+      monitorPort: req.body.monitorPort,
       isSmartSourceClient: req.body.isSmartSourceClient,
       password: hash
     };
+    if (channel.sourceAddress === undefined) {
+      channel.sourceAddress = '127.0.0.1';
+    }
     const splitterMonitor = await engine.launch(channel);
+    if(splitterMonitor === false) {
+      throw new Error('Error launching processes');
+    }
     channel.splitterAddress = splitterMonitor[0];
     if (db.addChannel(channel)) {
       const response = {
         channelUrl: channel.url,
         channelPassword: buf.toString('hex'),
         splitterAddress: splitterMonitor[0],
-        monitorAddress: splitterMonitor[1]
+        monitorAddress: splitterMonitor[1],
+        listenPort: splitterMonitor[2]
       };
       res.json(response);
     } else {

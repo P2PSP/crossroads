@@ -72,6 +72,23 @@ P2PSP monitor binary path. Set via env - MONITORBIN.
 
 
 
+#### checkBinaries() 
+
+Method to check if proper P2PSP core binaries are present on supplied path.
+Exits with code 1 if checks fail.
+
+
+
+
+
+
+##### Returns
+
+
+- `Void`
+
+
+
 
 ### controllers/channelController.js
 

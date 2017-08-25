@@ -38,15 +38,22 @@ const setProcessMap = mapp => {
  */
 const launch = async channel => {
   const splitter = await launchSplitter(channel);
+  if (splitter.error) {
+    return false;
+  }
+
   const splitterPort = splitter.address.split(':')[1];
   const monitor = await launchMonitor(channel, splitterPort);
+  if (monitor.error) {
+    return false;
+  }
 
   processMap.set(channel.url, {
     splitter: splitter.process,
     monitor: monitor.process
   });
 
-  return [splitter.address, monitor.address];
+  return [splitter.address, monitor.address, splitter.listenPort];
 };
 
 /**

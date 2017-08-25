@@ -17,9 +17,20 @@
 'use strict';
 
 const argon2 = require('argon2');
-const db = require('../../models/channelModel');
 const logger = require('kaho');
 const net = require('net');
+const db = require('../../models/channelModel');
+
+/**
+ * Function to check if passed parameter is valid port number or not.
+ *
+ * @param {Number} port - Port number
+ * @returns {boolean}
+ */
+const isValidPort = port => {
+  port = parseInt(port, 10);
+  return !(isNaN(port) || port < 1 || port > 65535);
+};
 
 /**
  * Validator for listing all existing channels. Sanitizes limit and offset query
@@ -62,24 +73,42 @@ const list = (req, res, next) => {
  * @returns {undefined}
  */
 const add = (req, res, next) => {
+  // required checks
   if (
     typeof req.body.channelDescription !== 'string' ||
     typeof req.body.channelName !== 'string' ||
-    typeof req.body.sourceAddress !== 'string' ||
-    net.isIP(req.body.sourceAddress) === 0 ||
-    typeof req.body.sourcePort !== 'number' ||
-    req.body.sourcePort > 65535 ||
-    req.body.sourcePort < 0 ||
     typeof req.body.headerSize !== 'number' ||
     req.body.headerSize < 0 ||
     typeof req.body.isSmartSourceClient !== 'boolean'
   ) {
     res.sendStatus(400);
+    return;
+  }
+
+  // splitterPort and monitorPort are optional fields
+  if (isValidPort(req.body.splitterPort) && isValidPort(req.body.monitorPort)) {
+    req.body.splitterPort = parseInt(req.body.splitterPort);
+    req.body.monitorPort = parseInt(req.body.monitorPort);
   } else {
+    req.body.splitterPort = undefined;
+    req.body.monitorPort = undefined;
+  }
+
+  // sourceAddress and sourcePort depend on isSmartSouceClient. So it either
+  // needs to be true, or if it is false, all other conditions must hold true.
+  if (
+    req.body.isSmartSourceClient ||
+    (!req.body.isSmartSourceClient &&
+      net.isIP(req.body.sourceAddress) !== 0 &&
+      isValidPort(req.body.sourcePort))
+  ) {
+    req.body.sourcePort = parseInt(req.body.sourcePort);
     req.body.channelName = req.body.channelName.substr(0, 256);
     req.body.channelName = req.body.channelName.trim();
     req.body.channelDescription = req.body.channelDescription.trim();
     next();
+  } else {
+    res.sendStatus(400);
   }
 };
 
@@ -102,35 +131,48 @@ const add = (req, res, next) => {
  * @returns {undefined}
  */
 const frontendAdd = (req, res, next) => {
+  // required checks
   if (
     typeof req.body.channelDescription !== 'string' ||
     typeof req.body.channelName !== 'string' ||
-    typeof req.body.sourceAddress !== 'string' ||
-    net.isIP(req.body.sourceAddress) === 0 ||
-    typeof req.body.sourcePort !== 'string' ||
     typeof req.body.headerSize !== 'string'
   ) {
     res.sendStatus(400);
+    return;
+  }
+
+  // splitterPort and monitorPort are optional fields
+  if (isValidPort(req.body.splitterPort) && isValidPort(req.body.monitorPort)) {
+    req.body.splitterPort = parseInt(req.body.splitterPort, 10);
+    req.body.monitorPort = parseInt(req.body.monitorPort, 10);
   } else {
+    req.body.splitterPort = undefined;
+    req.body.monitorPort = undefined;
+  }
+
+  req.body.headerSize = parseInt(req.body.headerSize, 10);
+  req.body.isSmartSourceClient = req.body.isSmartSourceClient ? true : false;
+  let isValidReq = req.body.isSmartSourceClient;
+
+  // if not SmartSourceClient and all conditions true, set valid request = true
+  if (
+    !req.body.isSmartSourceClient &&
+    net.isIP(req.body.sourceAddress) !== 0 &&
+    isValidPort(req.body.sourcePort) &&
+    !isNaN(req.body.headerSize) &&
+    req.body.headerSize >= 0
+  ) {
+    isValidReq = true;
+  }
+
+  if (isValidReq) {
     req.body.sourcePort = parseInt(req.body.sourcePort, 10);
-    req.body.headerSize = parseInt(req.body.headerSize, 10);
-    if (
-      isNaN(req.body.sourcePort) ||
-      req.body.sourcePort > 65535 ||
-      req.body.sourcePort < 0 ||
-      isNaN(req.body.headerSize) ||
-      req.body.headerSize < 0
-    ) {
-      res.sendStatus(400);
-    } else {
-      req.body.channelName = req.body.channelName.substr(0, 256);
-      req.body.channelName = req.body.channelName.trim();
-      req.body.channelDescription = req.body.channelDescription.trim();
-      req.body.isSmartSourceClient = req.body.isSmartSourceClient
-        ? true
-        : false;
-      next();
-    }
+    req.body.channelName = req.body.channelName.substr(0, 256);
+    req.body.channelName = req.body.channelName.trim();
+    req.body.channelDescription = req.body.channelDescription.trim();
+    next();
+  } else {
+    res.sendStatus(400);
   }
 };
 
@@ -156,11 +198,11 @@ const edit = (req, res, next) => {
     typeof req.body.channelUrl !== 'string' ||
     typeof req.body.channelPassword !== 'string'
   ) {
+    res.sendStatus(400);
+  } else {
     req.body.channelNewName = req.body.channelNewName.substr(0, 256);
     req.body.channelNewName = req.body.channelNewName.trim();
     req.body.channelNewDescription = req.body.channelNewDescription.trim();
-    res.sendStatus(400);
-  } else {
     next();
   }
 };

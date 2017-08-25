@@ -17,6 +17,11 @@ const { spawn } = require('child_process');
 const { getPort } = require('./getPort');
 const config = require('./../configs/config');
 const { genCmdSplitter } = require('./cmdGen');
+const db = require('./../models/channelModel');
+
+const sleep = ms => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
 
 /**
  * Async function to launch splitter process for given channel, returns splitter
@@ -29,12 +34,15 @@ const { genCmdSplitter } = require('./cmdGen');
 const launchSplitter = async channel => {
   const cmdParams = [
     channel.sourceAddress,
-    channel.sourcePort,
+    0,
     0,
     channel.name,
     channel.headerSize
   ];
-  cmdParams[2] = await getPort();
+  cmdParams[1] = channel.isSmartSourceClient
+    ? await getPort()
+    : channel.sourcePort;
+  cmdParams[2] = channel.splitterPort ? channel.splitterPort : await getPort();
 
   const stamp = new Date().getTime();
   const name = os.tmpdir() + '/P2PSP-' + channel.url + '-' + stamp + '.log';
@@ -45,20 +53,34 @@ const launchSplitter = async channel => {
     genCmdSplitter(...cmdParams) +
     (channel.isSmartSourceClient ? ' --smart_source_client 1' : '');
 
+  let isError = false;
+
   const splitterProcess = spawn('./splitter', splitterArgs.split(' '), {
     cwd: config.splitterBin,
     stdio: ['ignore', splitterFD, splitterFD]
   });
   splitterProcess.on('error', err => {
-    logger('WARNING', channel.name + ': splitter error', err);
+    isError = true;
+    setTimeout(() => {
+      db.removeChannel(channel.url);
+    }, 1000);
+    logger('WARNING', channel.name + ': splitter error', err, name);
   });
   splitterProcess.on('exit', code => {
-    logger('INFO', channel.name + ': splitter closed', code);
+    isError = true;
+    setTimeout(() => {
+      db.removeChannel(channel.url);
+    }, 1000);
+    logger('INFO', channel.name + ': splitter closed', code, name);
   });
+
+  await sleep(50);
 
   return {
     process: splitterProcess,
-    address: config.splitterAddress + ':' + cmdParams[2]
+    address: config.splitterAddress + ':' + cmdParams[2],
+    listenPort: channel.isSmartSourceClient ? cmdParams[1] : undefined,
+    error: isError
   };
 };
 

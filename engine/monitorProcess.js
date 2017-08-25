@@ -28,7 +28,7 @@ const { genCmdMonitor } = require('./cmdGen');
  * @returns {Object} Contains monitor process and address
  */
 const launchMonitor = async (channel, splitterPort) => {
-  const port = await getPort();
+  const port = channel.monitorPort ? channel.monitorPort : await getPort();
 
   const openFile = promisify(fs.open);
   const stamp = new Date().getTime();

@@ -38,7 +38,7 @@ const launchSplitter = async channel => {
   cmdParams[1] = channel.isSmartSourceClient
     ? await getPort()
     : channel.sourcePort;
-  cmdParams[2] = await getPort();
+  cmdParams[2] = channel.splitterPort ? channel.splitterPort : await getPort();
 
   const stamp = new Date().getTime();
   const name = os.tmpdir() + '/P2PSP-' + channel.url + '-' + stamp + '.log';

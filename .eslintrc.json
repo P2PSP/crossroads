@@ -29,7 +29,7 @@
     "max-len": [1, 120],
     "max-nested-callbacks": ["error", 5],
     "max-params": ["error", 5],
-    "max-statements": [1, 15],
+    "max-statements": [1, 20],
     "max-statements-per-line": ["error", { "max": 3 }],
     "new-cap": 1,
     "new-parens": "error",

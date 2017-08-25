@@ -81,10 +81,12 @@ const addChannel = async (req, res) => {
       sourceAddress: req.body.sourceAddress,
       sourcePort: req.body.sourcePort,
       headerSize: req.body.headerSize,
+      splitterPort: req.body.splitterPort,
+      monitorPort: req.body.monitorPort,
       isSmartSourceClient: req.body.isSmartSourceClient,
       password: hash
     };
-    if(channel.sourceAddress === undefined) {
+    if (channel.sourceAddress === undefined) {
       channel.sourceAddress = '127.0.0.1';
     }
     const splitterMonitor = await engine.launch(channel);

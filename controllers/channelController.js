@@ -90,6 +90,9 @@ const addChannel = async (req, res) => {
       channel.sourceAddress = '127.0.0.1';
     }
     const splitterMonitor = await engine.launch(channel);
+    if(splitterMonitor === false) {
+      throw new Error('Error launching processes');
+    }
     channel.splitterAddress = splitterMonitor[0];
     if (db.addChannel(channel)) {
       const response = {

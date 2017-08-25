@@ -19,6 +19,10 @@ const config = require('./../configs/config');
 const { genCmdSplitter } = require('./cmdGen');
 const db = require('./../models/channelModel');
 
+const sleep = ms => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
+
 /**
  * Async function to launch splitter process for given channel, returns splitter
  * process and address on success, otherwise throws Error
@@ -49,27 +53,34 @@ const launchSplitter = async channel => {
     genCmdSplitter(...cmdParams) +
     (channel.isSmartSourceClient ? ' --smart_source_client 1' : '');
 
+  let isError = false;
+
   const splitterProcess = spawn('./splitter', splitterArgs.split(' '), {
     cwd: config.splitterBin,
     stdio: ['ignore', splitterFD, splitterFD]
   });
   splitterProcess.on('error', err => {
+    isError = true;
     setTimeout(() => {
       db.removeChannel(channel.url);
     }, 1000);
     logger('WARNING', channel.name + ': splitter error', err, name);
   });
   splitterProcess.on('exit', code => {
+    isError = true;
     setTimeout(() => {
       db.removeChannel(channel.url);
     }, 1000);
     logger('INFO', channel.name + ': splitter closed', code, name);
   });
 
+  await sleep(50);
+
   return {
     process: splitterProcess,
     address: config.splitterAddress + ':' + cmdParams[2],
-    listenPort: channel.isSmartSourceClient ? cmdParams[1] : undefined
+    listenPort: channel.isSmartSourceClient ? cmdParams[1] : undefined,
+    error: isError
   };
 };
 

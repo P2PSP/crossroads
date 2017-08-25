@@ -18,6 +18,11 @@ const { getPort } = require('./getPort');
 const config = require('./../configs/config');
 const { genCmdMonitor } = require('./cmdGen');
 
+const sleep = ms => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
+
+
 /**
  * Async function to launch monitor process for given channel, returns monitor
  * process and address on success, otherwise throws Error
@@ -39,20 +44,27 @@ const launchMonitor = async (channel, splitterPort) => {
     genCmdMonitor(config.splitterAddress, splitterPort, port) +
     (channel.isSmartSourceClient ? ' --smart_source_client 1' : '');
 
+  let isError = false;
+
   const monitorProcess = spawn('./monitor', monitorArgs.split(' '), {
     cwd: config.monitorBin,
     stdio: ['ignore', monitorFD, monitorFD]
   });
   monitorProcess.on('error', err => {
+    isError = true;
     logger('Warning', channel.name + ': monitor error', err, name);
   });
   monitorProcess.on('exit', code => {
+    isError = true;
     logger('INFO', channel.name + ': monitor closed', code, name);
   });
 
+  await sleep(50);
+
   return {
     process: monitorProcess,
-    address: config.splitterAddress + ':' + port
+    address: config.splitterAddress + ':' + port,
+    error: isError
   };
 };
 

@@ -16,6 +16,6 @@ Make sure you have latest node version (node v8 currently), though it should wor
  - Before starting, make sure you've env variables named SPLITTERBIN and MONITORBIN pointing to directory of respective binaries
  - Start the server - `npm run dev` (for yarn, use `yarn dev`)
  - Make changes, update test files in `tests` directory and run tests - `npm test` or `yarn test`
- - At the end, make sure to generate docs via - `npm run gen-docs` command (for yarn - `yarn gen-docs`)
+ - At the end, make sure to generate docs via - `npm run gen-docs` and `npm run gen-docs-html` command (for yarn - `yarn gen-docs` and `yarn gen-docs-html`)
 
 Make sure to check out auto-generated [documentation](docs) as well.

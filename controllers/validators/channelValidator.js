@@ -20,17 +20,7 @@ const argon2 = require('argon2');
 const logger = require('kaho');
 const net = require('net');
 const db = require('../../models/channelModel');
-
-/**
- * Function to check if passed parameter is valid port number or not.
- *
- * @param {Number} port - Port number
- * @returns {boolean}
- */
-const isValidPort = port => {
-  port = parseInt(port, 10);
-  return !(isNaN(port) || port < 1 || port > 65535);
-};
+const isValidPort = require('./isValidPort');
 
 /**
  * Validator for listing all existing channels. Sanitizes limit and offset query

@@ -3,8 +3,13 @@
 const net = require('net');
 const logger = require('kaho');
 const missive = require('missive');
-const encode = missive.encode();
 const engine = require('./engine/engine');
+const mode = require('./engine/mode');
+const communicator = require('./engine/communicator');
+
+mode.setStandaloneEngineMode(true);
+const encode = missive.encode();
+communicator.setEncoder(encode);
 
 // parse command line args
 const argv = require('yargs')
@@ -83,7 +88,7 @@ const reqHandler = async req => {
           result = false;
         }
       }
-      encode.write({ result, payload, url: req.channel.url });
+      encode.write({ type: 'result', url: req.channel.url, result, payload });
       break;
 
     case 'remove':
@@ -92,7 +97,7 @@ const reqHandler = async req => {
   }
 };
 
-// connect to crossrads server
+// connect to crossroads server
 const client = net.createConnection({ host: argv.h, port: argv.p });
 logger('INFO', 'Connection established with Crossroads server');
 encode.pipe(client);
@@ -101,7 +106,7 @@ client
   .pipe(missive.parse())
   .on('message', reqHandler)
   .on('close', () => {
-    logger('WARN', 'Crossroads server closed connection');
+    logger('ERROR', 'Crossroads server closed connection');
     process.exit(1);
   })
   .on('error', e => {

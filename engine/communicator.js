@@ -14,28 +14,40 @@ const net = require('net');
 const logger = require('kaho');
 const missive = require('missive');
 const config = require('../configs/config');
+const db = require('../models/channelModel');
 
 // Map to hold request id => promise resolver value
 const requests = new Map();
 let socket = undefined;
 
+const responseHandler = res => {
+  switch (res.type) {
+    case 'result':
+      const resolver = requests.get(res.url);
+      if (resolver === undefined) {
+        reject('Malformed response recieved from engine');
+      } else {
+        resolver(res);
+      }
+      requests.delete(res.url);
+      break;
+    case 'remove':
+      db.removeChannel(res.url);
+      break;
+    default:
+      logger('WARN', 'Bad response from standalone Engine');
+  }
+};
+
 const waitForConnection = () => {
   const server = net.createServer();
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     server.on('connection', socket => {
       const encode = missive.encode();
       encode
         .pipe(socket)
         .pipe(missive.parse())
-        .on('message', res => {
-          const resolver = requests.get(res.url);
-          if(resolver === undefined) {
-            reject('Malformed response recieved from engine');
-          } else {
-            resolver(res);
-          }
-          requests.delete(res.url);
-        });
+        .on('message', responseHandler);
       resolve(encode);
     });
     server.on('close', () => {
@@ -76,16 +88,26 @@ const launch = async channel => {
 };
 
 const stop = async url => {
-  try {
-    const socket = await getSocket();
-    socket.write({ type: 'remove', url });
-  } catch (e) {
-    logger('ERROR', 'Error while stopping channel', e);
+  socket.write({ type: 'remove', url });
+};
+
+// Methods for standaloneEngine
+let encoder = undefined;
+const setEncoder = enc => {
+  encoder = enc;
+};
+const engineChannelRemove = url => {
+  if (encoder === undefined) {
+    logger('WARN', 'Could not send remove channel request to server');
+  } else {
+    encoder.write({ type: 'remove', url });
   }
 };
 
 module.exports = {
   connect,
   launch,
-  stop
+  stop,
+  setEncoder,
+  engineChannelRemove
 };

@@ -18,6 +18,8 @@ const { getPort } = require('./getPort');
 const config = require('./../configs/config');
 const { genCmdSplitter } = require('./cmdGen');
 const db = require('./../models/channelModel');
+const mode = require('./mode');
+const communicator = require('./communicator');
 
 const sleep = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -61,16 +63,24 @@ const launchSplitter = async channel => {
   });
   splitterProcess.on('error', err => {
     isError = true;
-    setTimeout(() => {
-      db.removeChannel(channel.url);
-    }, 1000);
+    if(mode.isStandaloneEngine()) {
+      communicator.engineChannelRemove(channel.url);
+    } else {
+      setTimeout(() => {
+        db.removeChannel(channel.url);
+      }, 1000);
+    }
     logger('WARNING', channel.name + ': splitter error', err, name);
   });
   splitterProcess.on('exit', code => {
     isError = true;
-    setTimeout(() => {
-      db.removeChannel(channel.url);
-    }, 1000);
+    if (mode.isStandaloneEngine()) {
+      communicator.engineChannelRemove(channel.url);
+    } else {
+      setTimeout(() => {
+        db.removeChannel(channel.url);
+      }, 1000);
+    }
     logger('INFO', channel.name + ': splitter closed', code, name);
   });
 

@@ -77,7 +77,7 @@ const stop = url => {
 /**
  * OnExit handler, in case of fatal exit all processes are killed
  */
-onExit((code, signal) => {
+onExit(() => {
   processMap.forEach(o => {
     o.splitter.kill('SIGKILL');
     o.monitor.kill('SIGKILL');

@@ -8,6 +8,7 @@ const config = require('./configs/config');
 const channelApi = require('./routes/channelRoutes');
 const frontend = require('./routes/frontendRoutes');
 const db = require('./models/channelModel');
+const communicator = require('./engine/communicator');
 
 config.checkBinaries();
 
@@ -25,6 +26,11 @@ app.set('view engine', 'ejs');
 app.use('/channels', channelApi);
 app.use('/', frontend);
 
-app.listen(config.port, () => {
+app.listen(config.port, async () => {
+  if(config.standaloneEngine) {
+    logger('INFO', 'Waiting for standalone engine connection');
+    await communicator.connect();
+    logger('INFO', 'Connected successfully with standalone engine');
+  }
   logger('INFO', 'Starting P2PSP server at http://localhost:' + config.port);
 });

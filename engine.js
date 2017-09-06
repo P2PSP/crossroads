@@ -1,6 +1,7 @@
 'use strict';
 
 const net = require('net');
+const logger = require('kaho');
 const missive = require('missive');
 const encode = missive.encode();
 const engine = require('./engine/engine');
@@ -68,22 +69,42 @@ const isValid = channel => {
   );
 };
 
-const reqHandler = async channel => {
+const reqHandler = async req => {
   let result = false;
   let payload = [];
-  if (isValid(channel)) {
-    try {
-      payload = await engine.launch(channel);
-      result = true;
-    } catch(e) {
-      result = false;
-    }
+
+  switch (req.type) {
+    case 'add':
+      if (isValid(req.channel)) {
+        try {
+          payload = await engine.launch(req.channel);
+          result = true;
+        } catch (e) {
+          result = false;
+        }
+      }
+      encode.write({ result, payload, url: req.channel.url });
+      break;
+
+    case 'remove':
+      engine.stop(req.url);
+      break;
   }
-  encode.write({ result, payload });
 };
 
 // connect to crossrads server
 const client = net.createConnection({ host: argv.h, port: argv.p });
+logger('INFO', 'Connection established with Crossroads server');
 encode.pipe(client);
 
-client.pipe(missive.parse()).on('message', reqHandler);
+client
+  .pipe(missive.parse())
+  .on('message', reqHandler)
+  .on('close', () => {
+    logger('WARN', 'Crossroads server closed connection');
+    process.exit(1);
+  })
+  .on('error', e => {
+    logger('ERROR', 'Error with crossroads connection', e);
+    process.exit(1);
+  });

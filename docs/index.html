@@ -196,6 +196,16 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
                         <li class="method-link scope-public">
+                            <a href="#configs-config.js-standaloneengine" title="standaloneEngine">standaloneEngine</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#configs-config.js-standaloneengineport" title="standaloneEnginePort">standaloneEnginePort</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
                             <a href="#configs-config.js-splitteraddress" title="splitterAddress">splitterAddress</a>
                         </li>
 
@@ -311,11 +321,6 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
                         <li class="method-link scope-public">
-                            <a href="#controllers-validators-channelvalidator.js-isvalidport" title="isValidPort">isValidPort</a>
-                        </li>
-
-
-                        <li class="method-link scope-public">
                             <a href="#controllers-validators-channelvalidator.js-list" title="list">list</a>
                         </li>
 
@@ -351,6 +356,21 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
                     <li>
+                        <a href="#controllers/validators/isValidPort.js" class="file"><b>controllers/validators/isValidPort.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#controllers-validators-isvalidport.js-isvalidport" title="isValidPort">isValidPort</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
                         <a href="#engine/cmdGen.js" class="file"><b>engine/cmdGen.js</b></a>
                         <ul>
 
@@ -367,6 +387,21 @@ input[type="search"]::-webkit-search-cancel-button {
 
                         <li class="method-link scope-public">
                             <a href="#engine-cmdgen.js-gencmdmonitor" title="genCmdMonitor">genCmdMonitor</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="#engine/communicator.js" class="file"><b>engine/communicator.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#engine-communicator.js-net" title="net">net</a>
                         </li>
 
 
@@ -471,6 +506,66 @@ input[type="search"]::-webkit-search-cancel-button {
 
                             <p>Default port number for running Server. Default value is 3000 which is picked
 if there is no PORT env variable set.</p>
+
+
+                        </div>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="configs-config.js-standaloneengine">
+                            <a href="#configs-config.js-standaloneengine" class="permalink">#</a>
+                            <span class="method-name" title="standaloneEngine()">standaloneEngine()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Flag to activate standalone engine module, picks from env P2PSP_ENGINE</p>
+
+
+                        </div>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="configs-config.js-standaloneengineport">
+                            <a href="#configs-config.js-standaloneengineport" class="permalink">#</a>
+                            <span class="method-name" title="standaloneEnginePort()">standaloneEnginePort()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Standalone engine port number, picks from env ENGINEPORT</p>
 
 
                         </div>
@@ -1669,79 +1764,6 @@ its corresponding password.</p>
 
                     <div class="method scope-public">
 
-                        <h2 id="controllers-validators-channelvalidator.js-isvalidport">
-                            <a href="#controllers-validators-channelvalidator.js-isvalidport" class="permalink">#</a>
-                            <span class="method-name" title="isValidPort(port)">isValidPort(port)</span>
-                        </h2>
-
-                        <div class="description lead">
-
-                            <p>Function to check if passed parameter is valid port number or not.</p>
-
-
-                        </div>
-
-
-                        <section class="parameters">
-
-                            <h3>Parameters</h3>
-
-                            <div class="table-responsive">
-                                <table class="table">
-
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Description</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    <tr>
-                                        <td>port</td>
-                                        <td>
-                                            <code>Number</code>
-                                        </td>
-                                        <td><ul>
-<li>Port number</li>
-</ul>
-</td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-
-                                </table>
-                            </div>
-
-                        </section>
-
-
-
-
-                        <section class="returns">
-
-                            <h3>Returns</h3>
-
-
-
-                                    <p>
-                                            <code>boolean</code>
-                                    </p>
-
-                                    
-
-
-
-                        </section>
-
-                    </div>
-
-
-                    <div class="method scope-public">
-
                         <h2 id="controllers-validators-channelvalidator.js-list">
                             <a href="#controllers-validators-channelvalidator.js-list" class="permalink">#</a>
                             <span class="method-name" title="list(req, res, next)">list(req, res, next)</span>
@@ -2599,6 +2621,83 @@ denies the request and returns HTTP 401.</p>
 
 
 
+                <a id="controllers/validators/isValidPort.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="controllers-validators-isvalidport.js-isvalidport">
+                            <a href="#controllers-validators-isvalidport.js-isvalidport" class="permalink">#</a>
+                            <span class="method-name" title="isValidPort(port)">isValidPort(port)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Function to check if passed parameter is valid port number or not.</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>port</td>
+                                        <td>
+                                            <code>Number</code>
+                                        </td>
+                                        <td><ul>
+<li>Port number</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>boolean</code>
+                                    </p>
+
+                                    
+
+
+
+                        </section>
+
+                    </div>
+
+
+
                 <a id="engine/cmdGen.js"></a>
 
 
@@ -2831,6 +2930,47 @@ generate monitor process execution command</p>
                                     <p>monitor process execution command</p>
 
 
+
+
+                        </section>
+
+                    </div>
+
+
+
+                <a id="engine/communicator.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="engine-communicator.js-net">
+                            <a href="#engine-communicator.js-net" class="permalink">#</a>
+                            <span class="method-name" title="net()">net()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Communicator module to establish connection and execute commands on remote
+standalone engine</p>
+<p>Exports methods</p>
+<ul>
+<li>connect</li>
+<li>launch</li>
+<li>stop</li>
+</ul>
+
+
+                        </div>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
 
 
                         </section>

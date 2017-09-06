@@ -37,7 +37,7 @@ const port = process.env.PORT || 3000;
  * @type {boolean}
  * @default false
 */
-const standaloneEngine = process.env.P2PSP_ENGINE || false;
+const standaloneEngine = process.env.P2PSP_ENGINE === 'TRUE';
 
 /**
  * Standalone engine port number, picks from env ENGINEPORT

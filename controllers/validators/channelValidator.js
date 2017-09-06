@@ -250,7 +250,7 @@ const auth = async (req, res, next) => {
       res.sendStatus(401);
     }
   } catch (err) {
-    logger('ERROR', err.toString(), err);
+    logger('WARN', err.toString(), err);
     res.sendStatus(500);
   }
 };

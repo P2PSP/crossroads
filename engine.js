@@ -122,7 +122,7 @@ const msgHandler = req => {
 
 // connect to crossroads server
 const client = net.createConnection({ host: argv.h, port: argv.p });
-logger('INFO', 'Connection established with Crossroads server');
+logger('SUCCESS', 'Connection established with Crossroads server');
 encode.pipe(client);
 
 client

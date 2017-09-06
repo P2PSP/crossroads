@@ -81,7 +81,7 @@ const launchSplitter = async channel => {
         db.removeChannel(channel.url);
       }, 1000);
     }
-    logger('INFO', channel.name + ': splitter closed', code, name);
+    logger('DEBUG', channel.name + ': splitter closed', code, name);
   });
 
   await sleep(50);

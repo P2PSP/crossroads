@@ -28,9 +28,9 @@ app.use('/', frontend);
 
 app.listen(config.port, async () => {
   if(config.standaloneEngine) {
-    logger('INFO', 'Waiting for standalone engine connection');
+    logger('INFO', 'Waiting for standalone engine connection...');
     await communicator.connect();
-    logger('INFO', 'Connected successfully with standalone engine');
+    logger('SUCCESS', 'Connected successfully with standalone engine!');
   }
-  logger('INFO', 'Starting P2PSP server at http://localhost:' + config.port);
+  logger('DEBUG', 'Starting P2PSP server at http://localhost:' + config.port);
 });

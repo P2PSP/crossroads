@@ -83,7 +83,7 @@ const checkBinaries = () => {
     !fs.existsSync(splitterBin + '/splitter') ||
     !fs.existsSync(monitorBin + '/monitor')
   ) {
-    logger('ERROR', 'Could not find P2PSP binaries!!', splitterBin, monitorBin);
+    logger('ERROR', 'Cannot find binaries. Exiting!', splitterBin, monitorBin);
     process.exit(1);
   }
 };

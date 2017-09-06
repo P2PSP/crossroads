@@ -110,7 +110,7 @@ const addChannel = async (req, res) => {
     }
   } catch (err) {
     res.sendStatus(500);
-    logger('ERROR', err.toString(), err);
+    logger('WARN', err.toString(), err);
   }
 };
 

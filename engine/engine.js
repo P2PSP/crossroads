@@ -42,7 +42,7 @@ const launch = async channel => {
   if (splitter.error) {
     return false;
   } else {
-    logger('INFO', 'Splitter process launched for channel: ' + channel.url);
+    logger('DEBUG', 'Splitter process launched for channel: ' + channel.url);
   }
 
   const splitterPort = splitter.address.split(':')[1];
@@ -50,7 +50,7 @@ const launch = async channel => {
   if (monitor.error) {
     return false;
   } else {
-    logger('INFO', 'Monitor process launched for channel: ' + channel.url);
+    logger('DEBUG', 'Monitor process launched for channel: ' + channel.url);
   }
 
   processMap.set(channel.url, {

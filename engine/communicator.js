@@ -42,7 +42,13 @@ const responseHandler = res => {
 
 const waitForConnection = () => {
   const key = crypto.randomBytes(256).toString('hex');
-  logger('SUCCESS', 'Secure key generated:', key);
+  logger(
+    'SUCCESS',
+    'UNIQUE SECURE KEY GENERATED FOR THIS SESSION:',
+    '--- COPY DOWN KEY CONTENTS BETWEEN QUOTES ---',
+    key,
+    '--- COPY DOWN KEY CONTENTS BETWEEN QUOTES ---'
+  );
 
   const server = net.createServer();
   return new Promise(resolve => {

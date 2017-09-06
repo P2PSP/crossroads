@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const net = require('net');
 const logger = require('kaho');
 const missive = require('missive');
@@ -11,6 +12,8 @@ mode.setStandaloneEngineMode(true);
 const encode = missive.encode();
 communicator.setEncoder(encode);
 
+const noop = () => {};
+
 // parse command line args
 const argv = require('yargs')
   .usage('Usage: $0 <command> [options]')
@@ -19,14 +22,17 @@ const argv = require('yargs')
   .default('ip', '127.0.0.1')
   .describe('port', 'Port number of server')
   .alias('port', 'p')
+  .describe('key', 'path to secure key')
+  .alias('key', 'k')
   .help('help')
   .alias('help', 'h')
-  .example('$0 -p 8000', 'Connect to server running on 127.0.0.1:8000')
   .example(
-    '$0 -i 192.168.1.23 -p 8000',
-    'Connect to server running on 192.168.1.23:8000'
+    '$0 -i 192.168.1.23 -p 8000 -k ~/my-key.txt',
+    'Connect to server on 192.168.1.23:8000 with given key location'
   )
-  .demandOption(['i', 'p']).argv;
+  .demandOption(['i', 'p', 'k']).argv;
+
+const secureKey = fs.readFileSync(argv.k, 'utf-8').trim();
 
 // channel property validator
 const isValid = channel => {
@@ -97,6 +103,23 @@ const reqHandler = async req => {
   }
 };
 
+let authenticate = req => {
+  if (req.type === 'auth' && req.key === secureKey) {
+    logger('SUCCESS', 'Authentication successfully with supplied key');
+  } else {
+    logger('ERROR', 'Supplied key do not match. Exiting!');
+    process.exit(1);
+  }
+  authenticate = noop;
+};
+
+const msgHandler = req => {
+  // runs only 1 time
+  authenticate(req);
+  // runs each time
+  reqHandler(req);
+};
+
 // connect to crossroads server
 const client = net.createConnection({ host: argv.h, port: argv.p });
 logger('INFO', 'Connection established with Crossroads server');
@@ -104,7 +127,7 @@ encode.pipe(client);
 
 client
   .pipe(missive.parse())
-  .on('message', reqHandler)
+  .on('message', msgHandler)
   .on('close', () => {
     logger('ERROR', 'Crossroads server closed connection');
     process.exit(1);

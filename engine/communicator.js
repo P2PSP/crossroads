@@ -11,6 +11,7 @@
  */
 
 const net = require('net');
+const crypto = require('crypto');
 const logger = require('kaho');
 const missive = require('missive');
 const config = require('../configs/config');
@@ -40,6 +41,9 @@ const responseHandler = res => {
 };
 
 const waitForConnection = () => {
+  const key = crypto.randomBytes(256).toString('hex');
+  logger('SUCCESS', 'Secure key generated:', key);
+
   const server = net.createServer();
   return new Promise(resolve => {
     server.on('connection', socket => {
@@ -48,8 +52,11 @@ const waitForConnection = () => {
         .pipe(socket)
         .pipe(missive.parse())
         .on('message', responseHandler);
+
+      encode.write({ type: 'auth', key });
       resolve(encode);
     });
+
     server.on('close', () => {
       logger('ERROR', 'Connection dropped with engine');
       process.exit(1);

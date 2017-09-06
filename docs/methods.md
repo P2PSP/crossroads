@@ -23,6 +23,38 @@ if there is no PORT env variable set.
 
 
 
+#### standaloneEngine() 
+
+Flag to activate standalone engine module, picks from env P2PSP_ENGINE
+
+
+
+
+
+
+##### Returns
+
+
+- `Void`
+
+
+
+#### standaloneEnginePort() 
+
+Standalone engine port number, picks from env ENGINEPORT
+
+
+
+
+
+
+##### Returns
+
+
+- `Void`
+
+
+
 #### splitterAddress() 
 
 P2PSP splitter bind address. By default '127.0.0.1' is picked if nothing is
@@ -619,6 +651,33 @@ denies the request and returns HTTP 401.
 
 
 
+### controllers/validators/isValidPort.js
+
+
+#### isValidPort(port) 
+
+Function to check if passed parameter is valid port number or not.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| port | `Number`  | - Port number | &nbsp; |
+
+
+
+
+##### Returns
+
+
+- `boolean`  
+
+
+
+
 ### engine/cmdGen.js
 
 
@@ -691,6 +750,32 @@ generate monitor process execution command
 
 
 - `String`  monitor process execution command
+
+
+
+
+### engine/communicator.js
+
+
+#### net() 
+
+Communicator module to establish connection and execute commands on remote
+standalone engine
+
+Exports methods
+ - connect
+ - launch
+ - stop
+
+
+
+
+
+
+##### Returns
+
+
+- `Void`
 
 
 

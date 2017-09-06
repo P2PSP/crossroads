@@ -22,7 +22,9 @@ const shortid = require('shortid');
 const promisify = require('util').promisify;
 const generateApiKey = promisify(crypto.randomBytes);
 const db = require('../models/channelModel');
-const engine = require('../engine/engine');
+const engine = require('../configs/config').standaloneEngine
+  ? require('../engine/communicator')
+  : require('../engine/engine');
 
 /**
  * Main controller method for listing out all channels currently present in
@@ -90,7 +92,7 @@ const addChannel = async (req, res) => {
       channel.sourceAddress = '127.0.0.1';
     }
     const splitterMonitor = await engine.launch(channel);
-    if(splitterMonitor === false) {
+    if (splitterMonitor === false) {
       throw new Error('Error launching processes');
     }
     channel.splitterAddress = splitterMonitor[0];
@@ -108,7 +110,7 @@ const addChannel = async (req, res) => {
     }
   } catch (err) {
     res.sendStatus(500);
-    logger('ERROR', err.toString(), err);
+    logger('WARN', err.toString(), err);
   }
 };
 

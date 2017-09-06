@@ -6,6 +6,8 @@
  *  - splitterBin
  *  - splitterAddress
  *  - monitorBin
+ *  - standaloneEngine
+ *  - standaloneEnginePort
 
  * And following methods
  *  - checkBinaries
@@ -27,6 +29,24 @@ const logger = require('kaho');
  * @default 3000
 */
 const port = process.env.PORT || 3000;
+
+/**
+ * Flag to activate standalone engine module, picks from env P2PSP_ENGINE
+ *
+ * @constant
+ * @type {boolean}
+ * @default false
+*/
+const standaloneEngine = process.env.P2PSP_ENGINE === 'TRUE';
+
+/**
+ * Standalone engine port number, picks from env ENGINEPORT
+ *
+ * @constant
+ * @type {number}
+ * @default 3000
+*/
+const standaloneEnginePort = process.env.ENGINEPORT || 5000;
 
 /**
  * P2PSP splitter bind address. By default '127.0.0.1' is picked if nothing is
@@ -63,7 +83,7 @@ const checkBinaries = () => {
     !fs.existsSync(splitterBin + '/splitter') ||
     !fs.existsSync(monitorBin + '/monitor')
   ) {
-    logger('ERROR', 'Could not find P2PSP binaries!!', splitterBin, monitorBin);
+    logger('ERROR', 'Cannot find binaries. Exiting!', splitterBin, monitorBin);
     process.exit(1);
   }
 };
@@ -73,5 +93,7 @@ module.exports = {
   splitterBin,
   splitterAddress,
   monitorBin,
+  standaloneEngine,
+  standaloneEnginePort,
   checkBinaries
 };

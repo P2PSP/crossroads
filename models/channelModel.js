@@ -17,7 +17,7 @@ const getAllChannels = (limit = 20, offset = 0) => {
   try {
     return db.prepare(Q.selectAllChannels).all({ limit, offset });
   } catch (e) {
-    logger('ERROR', 'getAllChannels() crash', e);
+    logger('WARNING', 'getAllChannels() crash', e);
     return false;
   }
 };
@@ -26,7 +26,7 @@ const getChannel = url => {
   try {
     return db.prepare(Q.selectChannel).get(url);
   } catch (e) {
-    logger('ERROR', 'getChannel() crash', e);
+    logger('WARNING', 'getChannel() crash', e);
     return false;
   }
 };
@@ -36,7 +36,7 @@ const addChannel = channel => {
     db.prepare(Q.insertChannel).run(channel);
     return true;
   } catch (e) {
-    logger('ERROR', 'addChannel() crash', e);
+    logger('WARNING', 'addChannel() crash', e);
     return false;
   }
 };
@@ -45,7 +45,7 @@ const getChannelHash = url => {
   try {
     return db.prepare(Q.selectHash).get(url);
   } catch (e) {
-    logger('ERROR', 'getChannelHash() crash', e);
+    logger('WARNING', 'getChannelHash() crash', e);
     return null;
   }
 };
@@ -56,7 +56,7 @@ const editChannel = (url, newChannel) => {
     db.prepare(Q.updateChannel).run(newChannel);
     return true;
   } catch (e) {
-    logger('ERROR', 'editChannel() crash', e);
+    logger('WARNING', 'editChannel() crash', e);
     return false;
   }
 };
@@ -66,7 +66,7 @@ const removeChannel = url => {
     db.prepare(Q.deleteChannel).run(url);
     return true;
   } catch (e) {
-    logger('ERROR', 'removeChannel() crash', e);
+    logger('WARNING', 'removeChannel() crash', e);
     return false;
   }
 };

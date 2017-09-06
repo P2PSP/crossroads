@@ -12,6 +12,7 @@
 'use strict';
 
 const onExit = require('signal-exit');
+const logger = require('kaho');
 const { launchSplitter } = require('./splitterProcess');
 const { launchMonitor } = require('./monitorProcess');
 
@@ -40,12 +41,16 @@ const launch = async channel => {
   const splitter = await launchSplitter(channel);
   if (splitter.error) {
     return false;
+  } else {
+    logger('DEBUG', 'Splitter process launched for channel: ' + channel.url);
   }
 
   const splitterPort = splitter.address.split(':')[1];
   const monitor = await launchMonitor(channel, splitterPort);
   if (monitor.error) {
     return false;
+  } else {
+    logger('DEBUG', 'Monitor process launched for channel: ' + channel.url);
   }
 
   processMap.set(channel.url, {
@@ -72,7 +77,7 @@ const stop = url => {
 /**
  * OnExit handler, in case of fatal exit all processes are killed
  */
-onExit((code, signal) => {
+onExit(() => {
   processMap.forEach(o => {
     o.splitter.kill('SIGKILL');
     o.monitor.kill('SIGKILL');

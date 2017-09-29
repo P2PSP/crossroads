@@ -20,59 +20,34 @@
 const fs = require('fs');
 const logger = require('kaho');
 
-/**
- * Default port number for running Server. Default value is 3000 which is picked
- * if there is no PORT env variable set.
- *
- * @constant
- * @type {number}
- * @default 3000
-*/
-const port = process.env.PORT || 3000;
+// parse command line args
+const argv = require('yargs')
+  .usage('Usage: $0 <command> [options]')
+  .describe('port', 'Port number of server')
+  .alias('port', 'p')
+  .default('p', 3000)
+  .describe('standalone', 'Is standalone engine')
+  .alias('standalone', 's')
+  .default('s', true)
+  .describe('engineport', 'Standalone engine port')
+  .alias('engineport', 'e')
+  .default('e', 5000)
+  .describe('sip', 'Splitter bind address')
+  .alias('sip', 'i')
+  .default('i', '127.0.0.1')
+  .describe('binary', 'Splitter/Monitor binaries path')
+  .alias('binary', 'b')
+  .help('help')
+  .alias('help', 'h')
+  .example('$0 -p 3000 -b /home/bin/', 'Start server on port 3000')
+  .demandOption(['b']).argv;
 
-/**
- * Flag to activate standalone engine module, picks from env P2PSP_ENGINE
- *
- * @constant
- * @type {boolean}
- * @default false
-*/
-const standaloneEngine = process.env.P2PSP_ENGINE === 'TRUE';
-
-/**
- * Standalone engine port number, picks from env ENGINEPORT
- *
- * @constant
- * @type {number}
- * @default 3000
-*/
-const standaloneEnginePort = process.env.ENGINEPORT || 5000;
-
-/**
- * P2PSP splitter bind address. By default '127.0.0.1' is picked if nothing is
- * supplied. Set via env - SBINDADDRESS.
- *
- * @constant
- * @type {string}
- * @default '127.0.0.1'
-*/
-const splitterAddress = process.env.SBINDADDRESS || '127.0.0.1';
-
-/**
- * P2PSP splitter binary path. Set via env - SPLITTERBIN.
- *
- * @constant
- * @type {string}
-*/
-const splitterBin = process.env.SPLITTERBIN;
-
-/**
- * P2PSP monitor binary path. Set via env - MONITORBIN.
- *
- * @constant
- * @type {string}
-*/
-const monitorBin = process.env.MONITORBIN;
+const port = argv.port;
+const standaloneEngine = argv.standalone !== 'false';
+const standaloneEnginePort = argv.engineport;
+const splitterAddress = argv.sip;
+const splitterBin = argv.binary;
+const monitorBin = argv.binary;
 
 /**
  * Method to check if proper P2PSP core binaries are present on supplied path.
@@ -80,8 +55,8 @@ const monitorBin = process.env.MONITORBIN;
  */
 const checkBinaries = () => {
   if (
-    !fs.existsSync(splitterBin + '/splitter') ||
-    !fs.existsSync(monitorBin + '/monitor')
+    !fs.existsSync(splitterBin + 'splitter') ||
+    !fs.existsSync(monitorBin + 'monitor')
   ) {
     logger('ERROR', 'Cannot find binaries. Exiting!', splitterBin, monitorBin);
     process.exit(1);

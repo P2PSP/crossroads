@@ -5,7 +5,6 @@ P2PSP server implementation
 ## How to start?
  - Clone the repo - `git clone https://github.com/agauniyal/crossroads`
  - Install required dependencies `cd crossroads && npm install --production` (for yarn, replace `npm install` with `yarn` and keep the `--production` flag as it is)
- - Before starting, make sure you've env variables named SPLITTERBIN and MONITORBIN pointing to directory of respective binaries
  - Start the server - `npm start` (for yarn, use `yarn start`)
 
 Make sure you have latest node version (node v8 currently), though it should work with v7 as well. Crossroads is continously tested on Travis CI against Node v8 and latest Node version.
@@ -13,7 +12,6 @@ Make sure you have latest node version (node v8 currently), though it should wor
 ## How to develop?
  - Clone the repo - `git clone https://github.com/agauniyal/crossroads`
  - Install required dependencies `cd crossroads && npm install` (for yarn, replace `npm install` with `yarn`)
- - Before starting, make sure you've env variables named SPLITTERBIN and MONITORBIN pointing to directory of respective binaries
  - Start the server - `npm run dev` (for yarn, use `yarn dev`)
  - Make changes, update test files in `tests` directory and run tests - `npm test` or `yarn test`
  - At the end, make sure to generate docs via - `npm run gen-docs` and `npm run gen-docs-html` command (for yarn - `yarn gen-docs` and `yarn gen-docs-html`)

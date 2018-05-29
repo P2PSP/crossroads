@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const cntrl = require('../controllers/frontendController');
 const check = require('../controllers/validators/channelValidator');
+const chnl = require('../controllers/channelController.js')
 
 router.use(helmet());
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -17,5 +18,6 @@ router.post('/edit', [check.edit, check.auth, cntrl.editChannel]);
 router.get('/remove', cntrl.renderRemoveChannelForm);
 router.post('/remove', [check.remove, check.auth, cntrl.removeChannel]);
 router.get('/:channelUrl', cntrl.renderAChannel);
+router.get('/channel/:channelUrl',chnl.getChannel);
 
 module.exports = router;

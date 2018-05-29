@@ -37,6 +37,7 @@ const argv = require('yargs')
   .default('i', '127.0.0.1')
   .describe('binary', 'Splitter/Monitor binaries path')
   .alias('binary', 'b')
+  .default('b', '../console/bin/')
   .help('help')
   .alias('help', 'h')
   .example('$0 -p 3000 -b /home/bin/', 'Start server on port 3000')
@@ -46,6 +47,8 @@ const port = argv.port;
 const standaloneEngine = argv.standalone !== 'false';
 const standaloneEnginePort = argv.engineport;
 const splitterAddress = argv.sip;
+//const splitterBin = argv.binary;
+//const monitorBin = argv.binary;
 const splitterBin = argv.binary;
 const monitorBin = argv.binary;
 
